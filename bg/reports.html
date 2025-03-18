@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports - Cifra</title>
+    <title>Справки - Cifra</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .language-selector {
+            position: absolute;
+            top: 1rem;
+            right: 5rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <!-- Navigation Bar -->
@@ -18,36 +25,42 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                         <a href="dashboard.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Dashboard
+                            Табло
                         </a>
                         <a href="documents.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Documents
+                            Документи
                         </a>
                         <a href="reports.html" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Reports
+                            Справки
                         </a>
                     </div>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <div class="language-selector mr-4">
+                        <select id="languageSelect" class="px-2 py-1 border border-gray-300 rounded-md text-sm">
+                            <option value="en">English</option>
+                            <option value="bg" selected>Български</option>
+                        </select>
+                    </div>
                     <div class="ml-3 relative">
                         <div>
                             <button type="button" class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button">
-                                <span class="sr-only">Open user menu</span>
+                                <span class="sr-only">Отвори потребителско меню</span>
                                 <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                    <span class="text-blue-600 font-medium">JD</span>
+                                    <span class="text-blue-600 font-medium">ИД</span>
                                 </div>
                             </button>
                         </div>
                         <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="user-menu">
-                            <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700">Settings</a>
-                            <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
+                            <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700">Настройки</a>
+                            <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700">Изход</a>
                         </div>
                     </div>
                 </div>
                 <!-- Mobile menu button -->
                 <div class="flex items-center sm:hidden">
                     <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                        <span class="sr-only">Open main menu</span>
+                        <span class="sr-only">Отвори главно меню</span>
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -59,11 +72,11 @@
         <!-- Mobile menu, show/hide based on menu state -->
         <div class="sm:hidden hidden" id="mobile-menu">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="dashboard.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Dashboard</a>
-                <a href="documents.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Documents</a>
-                <a href="reports.html" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Reports</a>
-                <a href="settings.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Settings</a>
-                <a href="login.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Sign out</a>
+                <a href="dashboard.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Табло</a>
+                <a href="documents.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Документи</a>
+                <a href="reports.html" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Справки</a>
+                <a href="settings.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Настройки</a>
+                <a href="login.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Изход</a>
             </div>
         </div>
     </nav>
@@ -73,9 +86,9 @@
         <div class="px-4 py-6 sm:px-0">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-2xl font-semibold text-gray-900">Reports</h1>
+                    <h1 class="text-2xl font-semibold text-gray-900">Справки</h1>
                     <p class="mt-1 text-sm text-gray-600">
-                        Generate and export financial reports.
+                        Генериране и експортиране на финансови справки.
                     </p>
                 </div>
                 <div>
@@ -83,7 +96,7 @@
                         <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                         </svg>
-                        Export Data
+                        Експорт на данни
                     </button>
                 </div>
             </div>
@@ -92,10 +105,10 @@
             <div class="mt-4 border-b border-gray-200">
                 <nav class="-mb-px flex space-x-8">
                     <a href="#" id="tab-reports" class="border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                        Generate Reports
+                        Генериране на справки
                     </a>
                     <a href="#" id="tab-export" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                        Export Data
+                        Експорт на данни
                     </a>
                 </nav>
             </div>
@@ -106,64 +119,64 @@
                 <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mb-6">
                     <div class="md:grid md:grid-cols-4 md:gap-6">
                         <div class="md:col-span-1">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900">Report Parameters</h3>
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Параметри на справката</h3>
                             <p class="mt-1 text-sm text-gray-500">
-                                Select the parameters for your report.
+                                Изберете параметрите за вашата справка.
                             </p>
                         </div>
                         <div class="mt-5 md:mt-0 md:col-span-3">
                             <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                 <div class="sm:col-span-3">
-                                    <label for="report-type" class="block text-sm font-medium text-gray-700">Report Type</label>
+                                    <label for="report-type" class="block text-sm font-medium text-gray-700">Тип справка</label>
                                     <select id="report-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                        <option value="category">Summary by Category</option>
-                                        <option value="supplier">Summary by Supplier</option>
-                                        <option value="transactions">Transaction List</option>
+                                        <option value="category">Обобщение по категория</option>
+                                        <option value="supplier">Обобщение по доставчик</option>
+                                        <option value="transactions">Списък с транзакции</option>
                                     </select>
                                 </div>
                                 <div class="sm:col-span-3">
-                                    <label for="date-range" class="block text-sm font-medium text-gray-700">Date Range</label>
+                                    <label for="date-range" class="block text-sm font-medium text-gray-700">Период</label>
                                     <select id="date-range" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                        <option value="this-month">This Month</option>
-                                        <option value="last-month">Last Month</option>
-                                        <option value="this-year">This Year</option>
-                                        <option value="last-year">Last Year</option>
-                                        <option value="custom">Custom Range</option>
+                                        <option value="this-month">Този месец</option>
+                                        <option value="last-month">Миналия месец</option>
+                                        <option value="this-year">Тази година</option>
+                                        <option value="last-year">Миналата година</option>
+                                        <option value="custom">Персонализиран период</option>
                                     </select>
                                 </div>
                                 
                                 <!-- Custom Date Range (hidden by default) -->
                                 <div id="custom-date-range" class="sm:col-span-3 hidden">
-                                    <label for="date-from" class="block text-sm font-medium text-gray-700">From</label>
+                                    <label for="date-from" class="block text-sm font-medium text-gray-700">От</label>
                                     <input type="date" id="date-from" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                                 <div id="custom-date-to" class="sm:col-span-3 hidden">
-                                    <label for="date-to" class="block text-sm font-medium text-gray-700">To</label>
+                                    <label for="date-to" class="block text-sm font-medium text-gray-700">До</label>
                                     <input type="date" id="date-to" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                                 
                                 <div class="sm:col-span-3">
-                                    <label for="category-filter" class="block text-sm font-medium text-gray-700">Category Filter (Optional)</label>
+                                    <label for="category-filter" class="block text-sm font-medium text-gray-700">Филтър по категория (Незадължително)</label>
                                     <select id="category-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                        <option value="">All Categories</option>
-                                        <option value="invoice">Invoice</option>
-                                        <option value="receipt">Receipt</option>
-                                        <option value="statement">Statement</option>
+                                        <option value="">Всички категории</option>
+                                        <option value="invoice">Фактура</option>
+                                        <option value="receipt">Разписка</option>
+                                        <option value="statement">Извлечение</option>
                                     </select>
                                 </div>
                                 <div class="sm:col-span-3">
-                                    <label for="supplier-filter" class="block text-sm font-medium text-gray-700">Supplier Filter (Optional)</label>
+                                    <label for="supplier-filter" class="block text-sm font-medium text-gray-700">Филтър по доставчик (Незадължително)</label>
                                     <select id="supplier-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                        <option value="">All Suppliers</option>
-                                        <option value="acme">Acme Corporation</option>
-                                        <option value="office-depot">Office Depot</option>
-                                        <option value="tech-solutions">Tech Solutions Inc.</option>
-                                        <option value="delta">Delta Airlines</option>
+                                        <option value="">Всички доставчици</option>
+                                        <option value="acme">Акме Корпорация</option>
+                                        <option value="office-depot">Офис Депо</option>
+                                        <option value="tech-solutions">Тех Солюшънс ООД</option>
+                                        <option value="delta">Делта Еърлайнс</option>
                                     </select>
                                 </div>
                                 <div class="sm:col-span-6 flex justify-end">
                                     <button type="button" id="generate-report" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                        Generate Report
+                                        Генерирай справка
                                     </button>
                                 </div>
                             </div>
@@ -176,10 +189,10 @@
                     <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
                         <div>
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="report-title">
-                                Summary by Category
+                                Обобщение по категория
                             </h3>
                             <p class="mt-1 max-w-2xl text-sm text-gray-500" id="report-subtitle">
-                                March 2025
+                                Март 2025
                             </p>
                         </div>
                         <div>
@@ -187,13 +200,13 @@
                                 <svg class="mr-2 -ml-1 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" />
                                 </svg>
-                                Print
+                                Печат
                             </button>
                             <button id="download-pdf" class="ml-3 inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                 <svg class="mr-2 -ml-1 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
-                                Download PDF
+                                Изтегли PDF
                             </button>
                         </div>
                     </div>
@@ -205,7 +218,7 @@
                                 <div class="px-4 py-5 sm:p-6">
                                     <dl>
                                         <dt class="text-sm font-medium text-gray-500 truncate">
-                                            Total Documents
+                                            Общо документи
                                         </dt>
                                         <dd class="mt-1 text-3xl font-semibold text-gray-900" id="total-documents">
                                             20
@@ -217,10 +230,10 @@
                                 <div class="px-4 py-5 sm:p-6">
                                     <dl>
                                         <dt class="text-sm font-medium text-gray-500 truncate">
-                                            Total Amount
+                                            Обща сума
                                         </dt>
                                         <dd class="mt-1 text-3xl font-semibold text-gray-900" id="total-amount">
-                                            $12,345.67
+                                            12 345,67 лв.
                                         </dd>
                                     </dl>
                                 </div>
@@ -229,10 +242,10 @@
                                 <div class="px-4 py-5 sm:p-6">
                                     <dl>
                                         <dt class="text-sm font-medium text-gray-500 truncate">
-                                            Average Amount
+                                            Средна сума
                                         </dt>
                                         <dd class="mt-1 text-3xl font-semibold text-gray-900" id="average-amount">
-                                            $617.28
+                                            617,28 лв.
                                         </dd>
                                     </dl>
                                 </div>
@@ -278,47 +291,47 @@
                 <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
                     <div class="md:grid md:grid-cols-3 md:gap-6">
                         <div class="md:col-span-1">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900">Export Options</h3>
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Опции за експорт</h3>
                             <p class="mt-1 text-sm text-gray-500">
-                                Customize your data export.
+                                Персонализирайте експорта на данни.
                             </p>
                         </div>
                         <div class="mt-5 md:mt-0 md:col-span-2">
                             <form id="export-form">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="export-format" class="block text-sm font-medium text-gray-700">Export Format</label>
+                                        <label for="export-format" class="block text-sm font-medium text-gray-700">Формат за експорт</label>
                                         <select id="export-format" name="export-format" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                            <option value="csv-basic">CSV (Basic)</option>
-                                            <option value="csv-advanced">CSV (Advanced)</option>
+                                            <option value="csv-basic">CSV (Основен)</option>
+                                            <option value="csv-advanced">CSV (Разширен)</option>
                                         </select>
                                     </div>
                                     
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="date-range-export" class="block text-sm font-medium text-gray-700">Date Range</label>
+                                        <label for="date-range-export" class="block text-sm font-medium text-gray-700">Период</label>
                                         <select id="date-range-export" name="date-range-export" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                            <option value="all-time">All Time</option>
-                                            <option value="this-month">This Month</option>
-                                            <option value="last-month">Last Month</option>
-                                            <option value="this-year">This Year</option>
-                                            <option value="last-year">Last Year</option>
-                                            <option value="custom">Custom Range</option>
+                                            <option value="all-time">Всички периоди</option>
+                                            <option value="this-month">Този месец</option>
+                                            <option value="last-month">Миналия месец</option>
+                                            <option value="this-year">Тази година</option>
+                                            <option value="last-year">Миналата година</option>
+                                            <option value="custom">Персонализиран период</option>
                                         </select>
                                     </div>
                                     
                                     <!-- Custom Date Range for Export (hidden by default) -->
                                     <div id="custom-date-range-export-from" class="col-span-6 sm:col-span-3 hidden">
-                                        <label for="date-from-export" class="block text-sm font-medium text-gray-700">From</label>
+                                        <label for="date-from-export" class="block text-sm font-medium text-gray-700">От</label>
                                         <input type="date" id="date-from-export" name="date-from-export" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     </div>
                                     <div id="custom-date-range-export-to" class="col-span-6 sm:col-span-3 hidden">
-                                        <label for="date-to-export" class="block text-sm font-medium text-gray-700">To</label>
+                                        <label for="date-to-export" class="block text-sm font-medium text-gray-700">До</label>
                                         <input type="date" id="date-to-export" name="date-to-export" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     </div>
                                     
                                     <div class="col-span-6">
                                         <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">Data Points to Include</legend>
+                                            <legend class="text-base font-medium text-gray-900">Данни за включване</legend>
                                             <div class="mt-4 space-y-4">
                                                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
                                                     <div class="flex items-start">
@@ -326,7 +339,7 @@
                                                             <input id="include-date" name="include-date" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
-                                                            <label for="include-date" class="font-medium text-gray-700">Date</label>
+                                                            <label for="include-date" class="font-medium text-gray-700">Дата</label>
                                                         </div>
                                                     </div>
                                                     <div class="flex items-start">
@@ -334,7 +347,7 @@
                                                             <input id="include-supplier" name="include-supplier" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
-                                                            <label for="include-supplier" class="font-medium text-gray-700">Supplier</label>
+                                                            <label for="include-supplier" class="font-medium text-gray-700">Доставчик</label>
                                                         </div>
                                                     </div>
                                                     <div class="flex items-start">
@@ -342,7 +355,7 @@
                                                             <input id="include-amount" name="include-amount" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
-                                                            <label for="include-amount" class="font-medium text-gray-700">Amount</label>
+                                                            <label for="include-amount" class="font-medium text-gray-700">Сума</label>
                                                         </div>
                                                     </div>
                                                     <div class="flex items-start">
@@ -350,7 +363,7 @@
                                                             <input id="include-category" name="include-category" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
-                                                            <label for="include-category" class="font-medium text-gray-700">Category</label>
+                                                            <label for="include-category" class="font-medium text-gray-700">Категория</label>
                                                         </div>
                                                     </div>
                                                     <div class="flex items-start">
@@ -358,7 +371,7 @@
                                                             <input id="include-tax" name="include-tax" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
-                                                            <label for="include-tax" class="font-medium text-gray-700">Tax</label>
+                                                            <label for="include-tax" class="font-medium text-gray-700">Данък</label>
                                                         </div>
                                                     </div>
                                                     <div class="flex items-start">
@@ -366,7 +379,7 @@
                                                             <input id="include-description" name="include-description" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
-                                                            <label for="include-description" class="font-medium text-gray-700">Description</label>
+                                                            <label for="include-description" class="font-medium text-gray-700">Описание</label>
                                                         </div>
                                                     </div>
                                                     <div class="flex items-start">
@@ -374,7 +387,7 @@
                                                             <input id="include-status" name="include-status" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
-                                                            <label for="include-status" class="font-medium text-gray-700">Status</label>
+                                                            <label for="include-status" class="font-medium text-gray-700">Статус</label>
                                                         </div>
                                                     </div>
                                                     <div class="flex items-start">
@@ -382,7 +395,7 @@
                                                             <input id="include-image-link" name="include-image-link" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
-                                                            <label for="include-image-link" class="font-medium text-gray-700">Image Link</label>
+                                                            <label for="include-image-link" class="font-medium text-gray-700">Връзка към изображение</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -393,7 +406,7 @@
                                 
                                 <div class="mt-6 flex justify-end">
                                     <button type="button" id="export-button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                        Generate Export
+                                        Генерирай експорт
                                     </button>
                                 </div>
                             </form>
@@ -405,10 +418,10 @@
                 <div id="export-result" class="mt-6 bg-white shadow sm:rounded-lg overflow-hidden hidden">
                     <div class="px-4 py-5 sm:px-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            Export Ready
+                            Експортът е готов
                         </h3>
                         <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                            Your data has been exported successfully.
+                            Вашите данни са експортирани успешно.
                         </p>
                     </div>
                     <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
@@ -421,7 +434,7 @@
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium text-green-800">
-                                        Your export file is ready for download.
+                                        Вашият експортен файл е готов за изтегляне.
                                     </p>
                                 </div>
                             </div>
@@ -431,7 +444,7 @@
                                 <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
-                                Download CSV
+                                Изтегли CSV
                             </a>
                         </div>
                     </div>
@@ -473,6 +486,18 @@
                     window.location.href = 'login.html';
                 });
             }
+            
+            // Language selector
+            const languageSelect = document.getElementById('languageSelect');
+            
+            languageSelect.addEventListener('change', function() {
+                const selectedLanguage = this.value;
+                if (selectedLanguage === 'bg') {
+                    window.location.href = 'reports.html';
+                } else if (selectedLanguage === 'en') {
+                    window.location.href = '../reports.html';
+                }
+            });
             
             // Tab switching
             const tabReports = document.getElementById('tab-reports');
@@ -561,7 +586,7 @@
             
             // Format currency
             function formatCurrency(amount) {
-                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+                return new Intl.NumberFormat('bg-BG', { style: 'currency', currency: 'BGN' }).format(amount);
             }
             
             // Generate report
