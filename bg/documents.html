@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Upload - Cifra</title>
+    <title>Качване на документи - Cifra</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .drag-area {
@@ -39,42 +39,42 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                         <a href="dashboard.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Dashboard
+                            Табло
                         </a>
                         <a href="documents.html" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Documents
+                            Документи
                         </a>
                         <a href="reports.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Reports
+                            Справки
                         </a>
                     </div>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                     <div class="language-selector mr-4">
                         <select id="languageSelect" class="px-2 py-1 border border-gray-300 rounded-md text-sm">
-                            <option value="en" selected>English</option>
-                            <option value="bg">Български</option>
+                            <option value="en">English</option>
+                            <option value="bg" selected>Български</option>
                         </select>
                     </div>
                     <div class="ml-3 relative">
                         <div>
                             <button type="button" class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button">
-                                <span class="sr-only">Open user menu</span>
+                                <span class="sr-only">Отвори потребителско меню</span>
                                 <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                    <span class="text-blue-600 font-medium">JD</span>
+                                    <span class="text-blue-600 font-medium">ИД</span>
                                 </div>
                             </button>
                         </div>
                         <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="user-menu">
-                            <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700">Settings</a>
-                            <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
+                            <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700">Настройки</a>
+                            <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700">Изход</a>
                         </div>
                     </div>
                 </div>
                 <!-- Mobile menu button -->
                 <div class="flex items-center sm:hidden">
                     <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                        <span class="sr-only">Open main menu</span>
+                        <span class="sr-only">Отвори главно меню</span>
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -86,11 +86,11 @@
         <!-- Mobile menu, show/hide based on menu state -->
         <div class="sm:hidden hidden" id="mobile-menu">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="dashboard.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Dashboard</a>
-                <a href="documents.html" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Documents</a>
-                <a href="reports.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Reports</a>
-                <a href="settings.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Settings</a>
-                <a href="login.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Sign out</a>
+                <a href="dashboard.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Табло</a>
+                <a href="documents.html" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Документи</a>
+                <a href="reports.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Справки</a>
+                <a href="settings.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Настройки</a>
+                <a href="login.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Изход</a>
             </div>
         </div>
     </nav>
@@ -100,9 +100,9 @@
         <div class="px-4 py-6 sm:px-0">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-2xl font-semibold text-gray-900">Documents</h1>
+                    <h1 class="text-2xl font-semibold text-gray-900">Документи</h1>
                     <p class="mt-1 text-sm text-gray-600">
-                        Upload, view, and manage your financial documents.
+                        Качване, преглед и управление на вашите финансови документи.
                     </p>
                 </div>
                 <div>
@@ -110,7 +110,7 @@
                         <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                         </svg>
-                        Upload Documents
+                        Качи документи
                     </button>
                 </div>
             </div>
@@ -119,10 +119,10 @@
             <div class="mt-4 border-b border-gray-200">
                 <nav class="-mb-px flex space-x-8">
                     <a href="#" id="tab-list" class="border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                        Document List
+                        Списък с документи
                     </a>
                     <a href="#" id="tab-upload" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                        Upload Documents
+                        Качване на документи
                     </a>
                 </nav>
             </div>
@@ -133,57 +133,57 @@
                 <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mb-6">
                     <div class="md:grid md:grid-cols-4 md:gap-6">
                         <div class="md:col-span-1">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900">Filters</h3>
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Филтри</h3>
                             <p class="mt-1 text-sm text-gray-500">
-                                Narrow down your document list.
+                                Стеснете списъка с документи.
                             </p>
                         </div>
                         <div class="mt-5 md:mt-0 md:col-span-3">
                             <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                 <div class="sm:col-span-3">
-                                    <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
+                                    <label for="search" class="block text-sm font-medium text-gray-700">Търсене</label>
                                     <div class="mt-1 relative rounded-md shadow-sm">
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                                             </svg>
                                         </div>
-                                        <input type="text" id="search" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md" placeholder="Search by supplier, invoice #, etc.">
+                                        <input type="text" id="search" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md" placeholder="Търсене по доставчик, номер на фактура и др.">
                                     </div>
                                 </div>
                                 <div class="sm:col-span-3">
-                                    <label for="status-filter" class="block text-sm font-medium text-gray-700">Status</label>
+                                    <label for="status-filter" class="block text-sm font-medium text-gray-700">Статус</label>
                                     <select id="status-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                        <option value="">All Statuses</option>
-                                        <option value="processed">Processed</option>
-                                        <option value="processing">Processing</option>
-                                        <option value="pending">Pending Review</option>
+                                        <option value="">Всички статуси</option>
+                                        <option value="processed">Обработени</option>
+                                        <option value="processing">В процес на обработка</option>
+                                        <option value="pending">Чакащи преглед</option>
                                     </select>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="date-from" class="block text-sm font-medium text-gray-700">Date From</label>
+                                    <label for="date-from" class="block text-sm font-medium text-gray-700">От дата</label>
                                     <input type="date" id="date-from" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="date-to" class="block text-sm font-medium text-gray-700">Date To</label>
+                                    <label for="date-to" class="block text-sm font-medium text-gray-700">До дата</label>
                                     <input type="date" id="date-to" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="category-filter" class="block text-sm font-medium text-gray-700">Category</label>
+                                    <label for="category-filter" class="block text-sm font-medium text-gray-700">Категория</label>
                                     <select id="category-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                        <option value="">All Categories</option>
-                                        <option value="invoice">Invoice</option>
-                                        <option value="receipt">Receipt</option>
-                                        <option value="statement">Statement</option>
-                                        <option value="other">Other</option>
+                                        <option value="">Всички категории</option>
+                                        <option value="invoice">Фактура</option>
+                                        <option value="receipt">Разписка</option>
+                                        <option value="statement">Извлечение</option>
+                                        <option value="other">Други</option>
                                     </select>
                                 </div>
                                 <div class="sm:col-span-6 flex justify-end">
                                     <button type="button" id="clear-filters" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                        Clear Filters
+                                        Изчисти филтрите
                                     </button>
                                     <button type="button" id="apply-filters" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                        Apply Filters
+                                        Приложи филтрите
                                     </button>
                                 </div>
                             </div>
@@ -196,22 +196,22 @@
                     <div class="flex justify-between items-center px-4 py-5 sm:px-6 border-b border-gray-200">
                         <div>
                             <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                Document List
+                                Списък с документи
                             </h3>
                             <p class="mt-1 max-w-2xl text-sm text-gray-500" id="document-count">
-                                Showing 10 documents
+                                Показване на 10 документа
                             </p>
                         </div>
                         <div class="flex items-center">
-                            <span class="mr-2 text-sm text-gray-500">Density:</span>
+                            <span class="mr-2 text-sm text-gray-500">Плътност:</span>
                             <button type="button" id="density-compact" class="mr-1 p-1 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                <span class="sr-only">Compact view</span>
+                                <span class="sr-only">Компактен изглед</span>
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
                                 </svg>
                             </button>
                             <button type="button" id="density-comfortable" class="p-1 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                <span class="sr-only">Comfortable view</span>
+                                <span class="sr-only">Удобен изглед</span>
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
                                 </svg>
@@ -229,7 +229,7 @@
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="name">
                                         <div class="flex items-center">
-                                            <span>Document</span>
+                                            <span>Документ</span>
                                             <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                             </svg>
@@ -237,7 +237,7 @@
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="date">
                                         <div class="flex items-center">
-                                            <span>Date</span>
+                                            <span>Дата</span>
                                             <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                             </svg>
@@ -245,7 +245,7 @@
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="supplier">
                                         <div class="flex items-center">
-                                            <span>Supplier</span>
+                                            <span>Доставчик</span>
                                             <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                             </svg>
@@ -253,20 +253,20 @@
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="amount">
                                         <div class="flex items-center">
-                                            <span>Amount</span>
+                                            <span>Сума</span>
                                             <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                             </svg>
                                         </div>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Category
+                                        Категория
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Status
+                                        Статус
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Actions
+                                        Действия
                                     </th>
                                 </tr>
                             </thead>
@@ -280,22 +280,22 @@
                     <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
                         <div class="flex-1 flex justify-between sm:hidden">
                             <button id="mobile-prev-page" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                Previous
+                                Предишна
                             </button>
                             <button id="mobile-next-page" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                Next
+                                Следваща
                             </button>
                         </div>
                         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                             <div>
                                 <p class="text-sm text-gray-700">
-                                    Showing <span id="page-start">1</span> to <span id="page-end">10</span> of <span id="total-documents">20</span> documents
+                                    Показване от <span id="page-start">1</span> до <span id="page-end">10</span> от <span id="total-documents">20</span> документа
                                 </p>
                             </div>
                             <div>
                                 <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                                     <button id="prev-page" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                        <span class="sr-only">Previous</span>
+                                        <span class="sr-only">Предишна</span>
                                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                                         </svg>
@@ -306,7 +306,7 @@
                                         <button class="px-1 mx-1">2</button>
                                     </span>
                                     <button id="next-page" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                        <span class="sr-only">Next</span>
+                                        <span class="sr-only">Следваща</span>
                                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                         </svg>
@@ -320,16 +320,16 @@
                     <div id="bulk-actions" class="hidden bg-gray-50 px-4 py-3 border-t border-gray-200 sm:px-6">
                         <div class="flex items-center">
                             <span class="text-sm text-gray-700 mr-4">
-                                <span id="selected-count">0</span> items selected
+                                <span id="selected-count">0</span> избрани елемента
                             </span>
                             <button type="button" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                Export
+                                Експорт
                             </button>
                             <button type="button" class="ml-3 inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                Add Tags
+                                Добави етикети
                             </button>
                             <button type="button" class="ml-3 inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                Delete
+                                Изтрий
                             </button>
                         </div>
                     </div>
@@ -349,7 +349,7 @@
                             </div>
                             <div class="ml-3 flex-1 md:flex md:justify-between">
                                 <p class="text-sm text-blue-700">
-                                    Supported formats: PDF, JPG, PNG | Maximum file size: 10MB per file
+                                    Поддържани формати: PDF, JPG, PNG | Максимален размер на файла: 10MB на файл
                                 </p>
                             </div>
                         </div>
@@ -357,10 +357,10 @@
                     
                     <!-- Document Owner Selection -->
                     <div class="mb-6">
-                        <label for="documentOwner" class="block text-sm font-medium text-gray-700">Document Owner</label>
+                        <label for="documentOwner" class="block text-sm font-medium text-gray-700">Собственик на документа</label>
                         <select id="documentOwner" name="documentOwner" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                            <option value="current">John Doe (You)</option>
-                            <option value="none">None (Company Document)</option>
+                            <option value="current">Иван Иванов (Вие)</option>
+                            <option value="none">Няма (Фирмен документ)</option>
                         </select>
                     </div>
                     
@@ -372,20 +372,20 @@
                             </svg>
                             <div class="flex text-sm text-gray-600 justify-center">
                                 <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
-                                    <span>Upload files</span>
+                                    <span>Качи файлове</span>
                                     <input id="file-upload" name="file-upload" type="file" class="sr-only" multiple accept=".pdf,.jpg,.jpeg,.png">
                                 </label>
-                                <p class="pl-1">or drag and drop</p>
+                                <p class="pl-1">или плъзни и пусни</p>
                             </div>
                             <p class="text-xs text-gray-500">
-                                PDF, JPG, PNG up to 10MB each
+                                PDF, JPG, PNG до 10MB всеки
                             </p>
                         </div>
                     </div>
                     
                     <!-- File List -->
                     <div id="file-list" class="mt-6 space-y-2 hidden">
-                        <h3 class="text-sm font-medium text-gray-900">Selected files</h3>
+                        <h3 class="text-sm font-medium text-gray-900">Избрани файлове</h3>
                         <ul id="file-items" class="border border-gray-200 rounded-md divide-y divide-gray-200"></ul>
                     </div>
                     
@@ -395,7 +395,7 @@
                             <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                             </svg>
-                            Upload Documents
+                            Качи документи
                         </button>
                     </div>
                 </div>
@@ -405,7 +405,7 @@
             <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Recent Uploads
+                        Последни качвания
                     </h3>
                 </div>
                 <ul class="divide-y divide-gray-200" id="recent-uploads">
@@ -417,22 +417,22 @@
             <div class="mt-6 bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Upload via Email
+                        Качване чрез имейл
                     </h3>
                     <div class="mt-2 max-w-xl text-sm text-gray-500">
                         <p>
-                            You can also email your documents directly to your unique upload address:
+                            Можете също да изпратите вашите документи директно на вашия уникален имейл адрес за качване:
                         </p>
                     </div>
                     <div class="mt-3 text-sm">
                         <div class="bg-gray-100 p-3 rounded-md font-mono text-blue-600">
-                            upload-jdoe-123456@cifra.example.com
+                            upload-iivanov-123456@cifra.example.com
                         </div>
                     </div>
                     <div class="mt-3 text-sm text-gray-500">
                         <p>
-                            Simply attach your documents to an email and send it to this address. 
-                            The system will automatically process the attachments.
+                            Просто прикачете вашите документи към имейл и го изпратете на този адрес. 
+                            Системата автоматично ще обработи прикачените файлове.
                         </p>
                     </div>
                 </div>
@@ -454,18 +454,18 @@
                     </div>
                     <div class="mt-3 text-center sm:mt-5">
                         <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                            Upload Successful
+                            Успешно качване
                         </h3>
                         <div class="mt-2">
                             <p class="text-sm text-gray-500">
-                                Your documents have been uploaded successfully and are now being processed. You'll be notified when the processing is complete.
+                                Вашите документи са качени успешно и в момента се обработват. Ще получите известие, когато обработката приключи.
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="mt-5 sm:mt-6">
                     <button type="button" id="close-modal" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
-                        Close
+                        Затвори
                     </button>
                 </div>
             </div>
@@ -512,9 +512,9 @@
             languageSelect.addEventListener('change', function() {
                 const selectedLanguage = this.value;
                 if (selectedLanguage === 'bg') {
-                    window.location.href = 'bg/documents.html';
-                } else if (selectedLanguage === 'en') {
                     window.location.href = 'documents.html';
+                } else if (selectedLanguage === 'en') {
+                    window.location.href = '../documents.html';
                 }
             });
             
@@ -580,26 +580,26 @@
             
             // Sample document data
             const documents = [
-                { id: 1, name: 'Invoice_March2025.pdf', date: '2025-03-17', supplier: 'Acme Corporation', amount: 1250.00, category: 'Invoice', status: 'Processed', statusColor: 'green' },
-                { id: 2, name: 'Receipt_Office_Supplies.jpg', date: '2025-03-15', supplier: 'Office Depot', amount: 345.67, category: 'Receipt', status: 'Pending Review', statusColor: 'yellow' },
-                { id: 3, name: 'Statement_Q1_2025.pdf', date: '2025-03-10', supplier: 'Bank of America', amount: 5432.10, category: 'Statement', status: 'Processing', statusColor: 'blue' },
-                { id: 4, name: 'Invoice_IT_Services.pdf', date: '2025-03-05', supplier: 'Tech Solutions Inc.', amount: 2500.00, category: 'Invoice', status: 'Processed', statusColor: 'green' },
-                { id: 5, name: 'Receipt_Travel_Expenses.jpg', date: '2025-02-28', supplier: 'Delta Airlines', amount: 876.54, category: 'Receipt', status: 'Processed', statusColor: 'green' },
-                { id: 6, name: 'Invoice_Marketing.pdf', date: '2025-02-25', supplier: 'Marketing Experts LLC', amount: 3750.00, category: 'Invoice', status: 'Pending Review', statusColor: 'yellow' },
-                { id: 7, name: 'Receipt_Office_Lunch.jpg', date: '2025-02-20', supplier: 'Panera Bread', amount: 125.45, category: 'Receipt', status: 'Processing', statusColor: 'blue' },
-                { id: 8, name: 'Invoice_Legal_Services.pdf', date: '2025-02-15', supplier: 'Legal Advisors Inc.', amount: 1800.00, category: 'Invoice', status: 'Processed', statusColor: 'green' },
-                { id: 9, name: 'Statement_Insurance.pdf', date: '2025-02-10', supplier: 'Allstate Insurance', amount: 567.89, category: 'Statement', status: 'Pending Review', statusColor: 'yellow' },
-                { id: 10, name: 'Receipt_Office_Furniture.jpg', date: '2025-02-05', supplier: 'IKEA', amount: 2345.67, category: 'Receipt', status: 'Processed', statusColor: 'green' },
-                { id: 11, name: 'Invoice_Consulting.pdf', date: '2025-01-30', supplier: 'Business Consultants LLC', amount: 4500.00, category: 'Invoice', status: 'Processing', statusColor: 'blue' },
-                { id: 12, name: 'Receipt_Software_License.pdf', date: '2025-01-25', supplier: 'Microsoft', amount: 899.99, category: 'Receipt', status: 'Processed', statusColor: 'green' },
-                { id: 13, name: 'Statement_Credit_Card.pdf', date: '2025-01-20', supplier: 'American Express', amount: 3456.78, category: 'Statement', status: 'Pending Review', statusColor: 'yellow' },
-                { id: 14, name: 'Invoice_Utilities.pdf', date: '2025-01-15', supplier: 'City Power & Water', amount: 234.56, category: 'Invoice', status: 'Processed', statusColor: 'green' },
-                { id: 15, name: 'Receipt_Client_Dinner.jpg', date: '2025-01-10', supplier: 'The Capital Grille', amount: 345.67, category: 'Receipt', status: 'Processing', statusColor: 'blue' },
-                { id: 16, name: 'Invoice_Rent.pdf', date: '2025-01-05', supplier: 'Commercial Properties Inc.', amount: 5000.00, category: 'Invoice', status: 'Processed', statusColor: 'green' },
-                { id: 17, name: 'Receipt_Office_Supplies_Jan.jpg', date: '2025-01-03', supplier: 'Staples', amount: 123.45, category: 'Receipt', status: 'Pending Review', statusColor: 'yellow' },
-                { id: 18, name: 'Statement_Investments.pdf', date: '2025-01-01', supplier: 'Fidelity Investments', amount: 12345.67, category: 'Statement', status: 'Processed', statusColor: 'green' },
-                { id: 19, name: 'Invoice_Cleaning_Services.pdf', date: '2024-12-28', supplier: 'Clean & Shine Co.', amount: 450.00, category: 'Invoice', status: 'Processing', statusColor: 'blue' },
-                { id: 20, name: 'Receipt_Holiday_Party.jpg', date: '2024-12-20', supplier: 'Party City', amount: 567.89, category: 'Receipt', status: 'Processed', statusColor: 'green' }
+                { id: 1, name: 'Фактура_Март2025.pdf', date: '2025-03-17', supplier: 'Акме Корпорация', amount: 1250.00, category: 'Фактура', status: 'Обработен', statusColor: 'green' },
+                { id: 2, name: 'Разписка_Офис_Консумативи.jpg', date: '2025-03-15', supplier: 'Офис Депо', amount: 345.67, category: 'Разписка', status: 'Чака преглед', statusColor: 'yellow' },
+                { id: 3, name: 'Извлечение_Q1_2025.pdf', date: '2025-03-10', supplier: 'Банка ДСК', amount: 5432.10, category: 'Извлечение', status: 'В обработка', statusColor: 'blue' },
+                { id: 4, name: 'Фактура_ИТ_Услуги.pdf', date: '2025-03-05', supplier: 'Тех Солюшънс ООД', amount: 2500.00, category: 'Фактура', status: 'Обработен', statusColor: 'green' },
+                { id: 5, name: 'Разписка_Пътни_Разходи.jpg', date: '2025-02-28', supplier: 'България Еър', amount: 876.54, category: 'Разписка', status: 'Обработен', statusColor: 'green' },
+                { id: 6, name: 'Фактура_Маркетинг.pdf', date: '2025-02-25', supplier: 'Маркетинг Експертс ООД', amount: 3750.00, category: 'Фактура', status: 'Чака преглед', statusColor: 'yellow' },
+                { id: 7, name: 'Разписка_Офис_Обяд.jpg', date: '2025-02-20', supplier: 'Хепи Бар & Грил', amount: 125.45, category: 'Разписка', status: 'В обработка', statusColor: 'blue' },
+                { id: 8, name: 'Фактура_Правни_Услуги.pdf', date: '2025-02-15', supplier: 'Правни Съветници ООД', amount: 1800.00, category: 'Фактура', status: 'Обработен', statusColor: 'green' },
+                { id: 9, name: 'Извлечение_Застраховка.pdf', date: '2025-02-10', supplier: 'ДЗИ Застраховане', amount: 567.89, category: 'Извлечение', status: 'Чака преглед', statusColor: 'yellow' },
+                { id: 10, name: 'Разписка_Офис_Мебели.jpg', date: '2025-02-05', supplier: 'ИКЕА', amount: 2345.67, category: 'Разписка', status: 'Обработен', statusColor: 'green' },
+                { id: 11, name: 'Фактура_Консултации.pdf', date: '2025-01-30', supplier: 'Бизнес Консултанти ООД', amount: 4500.00, category: 'Фактура', status: 'В обработка', statusColor: 'blue' },
+                { id: 12, name: 'Разписка_Софтуерен_Лиценз.pdf', date: '2025-01-25', supplier: 'Майкрософт', amount: 899.99, category: 'Разписка', status: 'Обработен', statusColor: 'green' },
+                { id: 13, name: 'Извлечение_Кредитна_Карта.pdf', date: '2025-01-20', supplier: 'Пощенска Банка', amount: 3456.78, category: 'Извлечение', status: 'Чака преглед', statusColor: 'yellow' },
+                { id: 14, name: 'Фактура_Комунални_Услуги.pdf', date: '2025-01-15', supplier: 'ЧЕЗ Електро', amount: 234.56, category: 'Фактура', status: 'Обработен', statusColor: 'green' },
+                { id: 15, name: 'Разписка_Вечеря_с_Клиент.jpg', date: '2025-01-10', supplier: 'Ресторант Панорама', amount: 345.67, category: 'Разписка', status: 'В обработка', statusColor: 'blue' },
+                { id: 16, name: 'Фактура_Наем.pdf', date: '2025-01-05', supplier: 'Бизнес Имоти ООД', amount: 5000.00, category: 'Фактура', status: 'Обработен', statusColor: 'green' },
+                { id: 17, name: 'Разписка_Офис_Консумативи_Ян.jpg', date: '2025-01-03', supplier: 'Офис 1', amount: 123.45, category: 'Разписка', status: 'Чака преглед', statusColor: 'yellow' },
+                { id: 18, name: 'Извлечение_Инвестиции.pdf', date: '2025-01-01', supplier: 'Райфайзен Банк', amount: 12345.67, category: 'Извлечение', status: 'Обработен', statusColor: 'green' },
+                { id: 19, name: 'Фактура_Почистване.pdf', date: '2024-12-28', supplier: 'Чисто и Блестящо ООД', amount: 450.00, category: 'Фактура', status: 'В обработка', statusColor: 'blue' },
+                { id: 20, name: 'Разписка_Коледно_Парти.jpg', date: '2024-12-20', supplier: 'Парти Център', amount: 567.89, category: 'Разписка', status: 'Обработен', statusColor: 'green' }
             ];
             
             // Pagination variables
@@ -609,7 +609,7 @@
             
             // Format currency
             function formatCurrency(amount) {
-                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+                return new Intl.NumberFormat('bg-BG', { style: 'currency', currency: 'BGN' }).format(amount);
             }
             
             // Render document table
@@ -626,7 +626,7 @@
                 pageStart.textContent = filteredDocuments.length > 0 ? startIndex + 1 : 0;
                 pageEnd.textContent = endIndex;
                 totalDocuments.textContent = filteredDocuments.length;
-                documentCount.textContent = `Showing ${paginatedDocuments.length} of ${filteredDocuments.length} documents`;
+                documentCount.textContent = `Показване на ${paginatedDocuments.length} от ${filteredDocuments.length} документа`;
                 
                 // Render documents
                 paginatedDocuments.forEach(doc => {
@@ -676,8 +676,8 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="document-details.html?id=${doc.id}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
-                            <button type="button" class="text-red-600 hover:text-red-900 delete-document" data-id="${doc.id}">Delete</button>
+                            <a href="document-details.html?id=${doc.id}" class="text-blue-600 hover:text-blue-900 mr-3">Редактирай</a>
+                            <button type="button" class="text-red-600 hover:text-red-900 delete-document" data-id="${doc.id}">Изтрий</button>
                         </td>
                     `;
                     
@@ -873,18 +873,18 @@
                     
                     // Status filter
                     if (status && doc.status !== status && 
-                        !(status === 'processed' && doc.status === 'Processed') && 
-                        !(status === 'processing' && doc.status === 'Processing') && 
-                        !(status === 'pending' && doc.status === 'Pending Review')) {
+                        !(status === 'processed' && doc.status === 'Обработен') && 
+                        !(status === 'processing' && doc.status === 'В обработка') && 
+                        !(status === 'pending' && doc.status === 'Чака преглед')) {
                         return false;
                     }
                     
                     // Category filter
                     if (category && doc.category !== category && 
-                        !(category === 'invoice' && doc.category === 'Invoice') && 
-                        !(category === 'receipt' && doc.category === 'Receipt') && 
-                        !(category === 'statement' && doc.category === 'Statement') && 
-                        !(category === 'other' && doc.category === 'Other')) {
+                        !(category === 'invoice' && doc.category === 'Фактура') && 
+                        !(category === 'receipt' && doc.category === 'Разписка') && 
+                        !(category === 'statement' && doc.category === 'Извлечение') && 
+                        !(category === 'other' && doc.category === 'Други')) {
                         return false;
                     }
                     
@@ -1009,9 +1009,9 @@
                     const isValidSize = fileSize <= 10;
                     
                     if (!isValidType) {
-                        alert(`File "${file.name}" is not a supported format. Please upload PDF, JPG, or PNG files.`);
+                        alert(`Файлът "${file.name}" не е в поддържан формат. Моля, качете PDF, JPG или PNG файлове.`);
                     } else if (!isValidSize) {
-                        alert(`File "${file.name}" exceeds the 10MB size limit.`);
+                        alert(`Файлът "${file.name}" надвишава ограничението от 10MB.`);
                     }
                     
                     return isValidType && isValidSize;
@@ -1106,20 +1106,20 @@
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Uploading...
+                    Качване...
                 `;
                 
                 // Simulate upload delay
                 setTimeout(() => {
                     // Add uploaded files to recent uploads
-                    const owner = document.getElementById('documentOwner').value === 'current' ? 'John Doe' : 'Company';
+                    const owner = document.getElementById('documentOwner').value === 'current' ? 'Иван Иванов' : 'Фирма';
                     const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
                     
                     files.forEach(file => {
                         const listItem = document.createElement('li');
                         
                         // Determine status randomly for demo
-                        const statuses = ['Processed', 'Processing', 'Pending Review'];
+                        const statuses = ['Обработен', 'В обработка', 'Чака преглед'];
                         const statusColors = ['green', 'blue', 'yellow'];
                         const randomIndex = Math.floor(Math.random() * statuses.length);
                         const status = statuses[randomIndex];
@@ -1151,7 +1151,7 @@
                                             <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                                         </svg>
                                         <p>
-                                            Uploaded on <time datetime="${currentDate}">${currentDate}</time>
+                                            Качено на <time datetime="${currentDate}">${currentDate}</time>
                                         </p>
                                     </div>
                                 </div>
@@ -1176,7 +1176,7 @@
                         <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                         </svg>
-                        Upload Documents
+                        Качи документи
                     `;
                     
                     // Show success modal
@@ -1186,8 +1186,8 @@
             
             // Initialize with some example recent uploads
             const exampleUploads = [
-                { name: 'Invoice_March2025.pdf', owner: 'John Doe', date: '2025-03-17', status: 'Processed', statusColor: 'green' },
-                { name: 'Receipt_Office_Supplies.jpg', owner: 'Company', date: '2025-03-15', status: 'Pending Review', statusColor: 'yellow' }
+                { name: 'Фактура_Март2025.pdf', owner: 'Иван Иванов', date: '2025-03-17', status: 'Обработен', statusColor: 'green' },
+                { name: 'Разписка_Офис_Консумативи.jpg', owner: 'Фирма', date: '2025-03-15', status: 'Чака преглед', statusColor: 'yellow' }
             ];
             
             exampleUploads.forEach(upload => {
@@ -1218,7 +1218,7 @@
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                                 </svg>
                                 <p>
-                                    Uploaded on <time datetime="${upload.date}">${upload.date}</time>
+                                    Качено на <time datetime="${upload.date}">${upload.date}</time>
                                 </p>
                             </div>
                         </div>
