@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Upload - Cifra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .drag-area {
+            border: 2px dashed #cbd5e0;
+            transition: all 0.3s ease;
+        }
+        .drag-area.active {
+            border-color: #4299e1;
+            background-color: #ebf8ff;
+        }
+        .file-item {
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-blue-600 text-lg font-bold">Cifra</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="dashboard.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Dashboard
+                        </a>
+                        <a href="documents.html" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Documents
+                        </a>
+                        <a href="reports.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Reports
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <div class="ml-3 relative">
+                        <div>
+                            <button type="button" class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button">
+                                <span class="sr-only">Open user menu</span>
+                                <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <span class="text-blue-600 font-medium">JD</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="user-menu">
+                            <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700">Settings</a>
+                            <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex items-center sm:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu, show/hide based on menu state -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="dashboard.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Dashboard</a>
+                <a href="documents.html" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Documents</a>
+                <a href="reports.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Reports</a>
+                <a href="settings.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Settings</a>
+                <a href="login.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Sign out</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-semibold text-gray-900">Documents</h1>
+                    <p class="mt-1 text-sm text-gray-600">
+                        Upload, view, and manage your financial documents.
+                    </p>
+                </div>
+                <div>
+                    <button id="show-upload-section" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Upload Documents
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Tab Navigation -->
+            <div class="mt-4 border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8">
+                    <a href="#" id="tab-list" class="border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Document List
+                    </a>
+                    <a href="#" id="tab-upload" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Upload Documents
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Document List View (default visible) -->
+            <div id="document-list-section" class="mt-6">
+                <!-- Filters and Search -->
+                <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mb-6">
+                    <div class="md:grid md:grid-cols-4 md:gap-6">
+                        <div class="md:col-span-1">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Filters</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Narrow down your document list.
+                            </p>
+                        </div>
+                        <div class="mt-5 md:mt-0 md:col-span-3">
+                            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                                <div class="sm:col-span-3">
+                                    <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <input type="text" id="search" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md" placeholder="Search by supplier, invoice #, etc.">
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label for="status-filter" class="block text-sm font-medium text-gray-700">Status</label>
+                                    <select id="status-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                        <option value="">All Statuses</option>
+                                        <option value="processed">Processed</option>
+                                        <option value="processing">Processing</option>
+                                        <option value="pending">Pending Review</option>
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="date-from" class="block text-sm font-medium text-gray-700">Date From</label>
+                                    <input type="date" id="date-from" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="date-to" class="block text-sm font-medium text-gray-700">Date To</label>
+                                    <input type="date" id="date-to" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="category-filter" class="block text-sm font-medium text-gray-700">Category</label>
+                                    <select id="category-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                        <option value="">All Categories</option>
+                                        <option value="invoice">Invoice</option>
+                                        <option value="receipt">Receipt</option>
+                                        <option value="statement">Statement</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-6 flex justify-end">
+                                    <button type="button" id="clear-filters" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        Clear Filters
+                                    </button>
+                                    <button type="button" id="apply-filters" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        Apply Filters
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Document Table -->
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="flex justify-between items-center px-4 py-5 sm:px-6 border-b border-gray-200">
+                        <div>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Document List
+                            </h3>
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500" id="document-count">
+                                Showing 10 documents
+                            </p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="mr-2 text-sm text-gray-500">Density:</span>
+                            <button type="button" id="density-compact" class="mr-1 p-1 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <span class="sr-only">Compact view</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <button type="button" id="density-comfortable" class="p-1 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <span class="sr-only">Comfortable view</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <div class="flex items-center">
+                                            <input id="select-all" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="name">
+                                        <div class="flex items-center">
+                                            <span>Document</span>
+                                            <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="date">
+                                        <div class="flex items-center">
+                                            <span>Date</span>
+                                            <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="supplier">
+                                        <div class="flex items-center">
+                                            <span>Supplier</span>
+                                            <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" data-sort="amount">
+                                        <div class="flex items-center">
+                                            <span>Amount</span>
+                                            <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Category
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="document-table-body" class="bg-white divide-y divide-gray-200">
+                                <!-- Table rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                        <div class="flex-1 flex justify-between sm:hidden">
+                            <button id="mobile-prev-page" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                Previous
+                            </button>
+                            <button id="mobile-next-page" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                Next
+                            </button>
+                        </div>
+                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                            <div>
+                                <p class="text-sm text-gray-700">
+                                    Showing <span id="page-start">1</span> to <span id="page-end">10</span> of <span id="total-documents">20</span> documents
+                                </p>
+                            </div>
+                            <div>
+                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                    <button id="prev-page" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <span class="sr-only">Previous</span>
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                    <span id="pagination-numbers" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                                        <!-- Pagination numbers will be populated by JavaScript -->
+                                        <button class="px-1 mx-1 rounded bg-blue-600 text-white">1</button>
+                                        <button class="px-1 mx-1">2</button>
+                                    </span>
+                                    <button id="next-page" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <span class="sr-only">Next</span>
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bulk Actions (hidden by default) -->
+                    <div id="bulk-actions" class="hidden bg-gray-50 px-4 py-3 border-t border-gray-200 sm:px-6">
+                        <div class="flex items-center">
+                            <span class="text-sm text-gray-700 mr-4">
+                                <span id="selected-count">0</span> items selected
+                            </span>
+                            <button type="button" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Export
+                            </button>
+                            <button type="button" class="ml-3 inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Add Tags
+                            </button>
+                            <button type="button" class="ml-3 inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upload Container (hidden by default) -->
+            <div id="upload-section" class="mt-6 bg-white shadow sm:rounded-lg overflow-hidden hidden">
+                <div class="px-4 py-5 sm:p-6">
+                    <!-- File Format Information -->
+                    <div class="mb-6 bg-blue-50 p-4 rounded-md">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3 flex-1 md:flex md:justify-between">
+                                <p class="text-sm text-blue-700">
+                                    Supported formats: PDF, JPG, PNG | Maximum file size: 10MB per file
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Document Owner Selection -->
+                    <div class="mb-6">
+                        <label for="documentOwner" class="block text-sm font-medium text-gray-700">Document Owner</label>
+                        <select id="documentOwner" name="documentOwner" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <option value="current">John Doe (You)</option>
+                            <option value="none">None (Company Document)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Drag & Drop Area -->
+                    <div id="drop-area" class="drag-area mt-2 p-6 border-2 rounded-lg text-center cursor-pointer focus:outline-none" tabindex="0">
+                        <div class="space-y-1 text-center">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <div class="flex text-sm text-gray-600 justify-center">
+                                <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                    <span>Upload files</span>
+                                    <input id="file-upload" name="file-upload" type="file" class="sr-only" multiple accept=".pdf,.jpg,.jpeg,.png">
+                                </label>
+                                <p class="pl-1">or drag and drop</p>
+                            </div>
+                            <p class="text-xs text-gray-500">
+                                PDF, JPG, PNG up to 10MB each
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- File List -->
+                    <div id="file-list" class="mt-6 space-y-2 hidden">
+                        <h3 class="text-sm font-medium text-gray-900">Selected files</h3>
+                        <ul id="file-items" class="border border-gray-200 rounded-md divide-y divide-gray-200"></ul>
+                    </div>
+                    
+                    <!-- Upload Button -->
+                    <div class="mt-6">
+                        <button id="upload-button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Upload Documents
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Uploads -->
+            <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-md">
+                <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Recent Uploads
+                    </h3>
+                </div>
+                <ul class="divide-y divide-gray-200" id="recent-uploads">
+                    <!-- This will be populated with recent uploads -->
+                </ul>
+            </div>
+            
+            <!-- Email Upload Information -->
+            <div class="mt-6 bg-white shadow sm:rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Upload via Email
+                    </h3>
+                    <div class="mt-2 max-w-xl text-sm text-gray-500">
+                        <p>
+                            You can also email your documents directly to your unique upload address:
+                        </p>
+                    </div>
+                    <div class="mt-3 text-sm">
+                        <div class="bg-gray-100 p-3 rounded-md font-mono text-blue-600">
+                            upload-jdoe-123456@cifra.example.com
+                        </div>
+                    </div>
+                    <div class="mt-3 text-sm text-gray-500">
+                        <p>
+                            Simply attach your documents to an email and send it to this address. 
+                            The system will automatically process the attachments.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal (hidden by default) -->
+    <div id="success-modal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+                <div>
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                        <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-5">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Upload Successful
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                Your documents have been uploaded successfully and are now being processed. You'll be notified when the processing is complete.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-6">
+                    <button type="button" id="close-modal" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // User menu toggle
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            userMenuButton.addEventListener('click', function() {
+                userMenu.classList.toggle('hidden');
+            });
+            
+            // Close the menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                    userMenu.classList.add('hidden');
+                }
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Logout functionality
+            const logoutButton = document.getElementById('logoutButton');
+            
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function() {
+                    window.location.href = 'login.html';
+                });
+            }
+            
+            // Tab switching
+            const tabList = document.getElementById('tab-list');
+            const tabUpload = document.getElementById('tab-upload');
+            const documentListSection = document.getElementById('document-list-section');
+            const uploadSection = document.getElementById('upload-section');
+            const showUploadButton = document.getElementById('show-upload-section');
+            
+            // Check URL parameters for tab selection
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('tab') === 'upload') {
+                // Automatically switch to upload tab
+                tabUpload.classList.add('border-blue-500', 'text-blue-600');
+                tabUpload.classList.remove('border-transparent', 'text-gray-500');
+                tabList.classList.remove('border-blue-500', 'text-blue-600');
+                tabList.classList.add('border-transparent', 'text-gray-500');
+                uploadSection.classList.remove('hidden');
+                documentListSection.classList.add('hidden');
+            }
+            
+            tabList.addEventListener('click', function(e) {
+                e.preventDefault();
+                tabList.classList.add('border-blue-500', 'text-blue-600');
+                tabList.classList.remove('border-transparent', 'text-gray-500');
+                tabUpload.classList.remove('border-blue-500', 'text-blue-600');
+                tabUpload.classList.add('border-transparent', 'text-gray-500');
+                documentListSection.classList.remove('hidden');
+                uploadSection.classList.add('hidden');
+            });
+            
+            tabUpload.addEventListener('click', function(e) {
+                e.preventDefault();
+                tabUpload.classList.add('border-blue-500', 'text-blue-600');
+                tabUpload.classList.remove('border-transparent', 'text-gray-500');
+                tabList.classList.remove('border-blue-500', 'text-blue-600');
+                tabList.classList.add('border-transparent', 'text-gray-500');
+                uploadSection.classList.remove('hidden');
+                documentListSection.classList.add('hidden');
+            });
+            
+            showUploadButton.addEventListener('click', function() {
+                tabUpload.click();
+            });
+            
+            // Document list functionality
+            const documentTableBody = document.getElementById('document-table-body');
+            const selectAllCheckbox = document.getElementById('select-all');
+            const bulkActions = document.getElementById('bulk-actions');
+            const selectedCount = document.getElementById('selected-count');
+            const documentCount = document.getElementById('document-count');
+            const totalDocuments = document.getElementById('total-documents');
+            const pageStart = document.getElementById('page-start');
+            const pageEnd = document.getElementById('page-end');
+            const prevPage = document.getElementById('prev-page');
+            const nextPage = document.getElementById('next-page');
+            const mobilePrevPage = document.getElementById('mobile-prev-page');
+            const mobileNextPage = document.getElementById('mobile-next-page');
+            const paginationNumbers = document.getElementById('pagination-numbers');
+            const densityCompact = document.getElementById('density-compact');
+            const densityComfortable = document.getElementById('density-comfortable');
+            
+            // Sample document data
+            const documents = [
+                { id: 1, name: 'Invoice_March2025.pdf', date: '2025-03-17', supplier: 'Acme Corporation', amount: 1250.00, category: 'Invoice', status: 'Processed', statusColor: 'green' },
+                { id: 2, name: 'Receipt_Office_Supplies.jpg', date: '2025-03-15', supplier: 'Office Depot', amount: 345.67, category: 'Receipt', status: 'Pending Review', statusColor: 'yellow' },
+                { id: 3, name: 'Statement_Q1_2025.pdf', date: '2025-03-10', supplier: 'Bank of America', amount: 5432.10, category: 'Statement', status: 'Processing', statusColor: 'blue' },
+                { id: 4, name: 'Invoice_IT_Services.pdf', date: '2025-03-05', supplier: 'Tech Solutions Inc.', amount: 2500.00, category: 'Invoice', status: 'Processed', statusColor: 'green' },
+                { id: 5, name: 'Receipt_Travel_Expenses.jpg', date: '2025-02-28', supplier: 'Delta Airlines', amount: 876.54, category: 'Receipt', status: 'Processed', statusColor: 'green' },
+                { id: 6, name: 'Invoice_Marketing.pdf', date: '2025-02-25', supplier: 'Marketing Experts LLC', amount: 3750.00, category: 'Invoice', status: 'Pending Review', statusColor: 'yellow' },
+                { id: 7, name: 'Receipt_Office_Lunch.jpg', date: '2025-02-20', supplier: 'Panera Bread', amount: 125.45, category: 'Receipt', status: 'Processing', statusColor: 'blue' },
+                { id: 8, name: 'Invoice_Legal_Services.pdf', date: '2025-02-15', supplier: 'Legal Advisors Inc.', amount: 1800.00, category: 'Invoice', status: 'Processed', statusColor: 'green' },
+                { id: 9, name: 'Statement_Insurance.pdf', date: '2025-02-10', supplier: 'Allstate Insurance', amount: 567.89, category: 'Statement', status: 'Pending Review', statusColor: 'yellow' },
+                { id: 10, name: 'Receipt_Office_Furniture.jpg', date: '2025-02-05', supplier: 'IKEA', amount: 2345.67, category: 'Receipt', status: 'Processed', statusColor: 'green' },
+                { id: 11, name: 'Invoice_Consulting.pdf', date: '2025-01-30', supplier: 'Business Consultants LLC', amount: 4500.00, category: 'Invoice', status: 'Processing', statusColor: 'blue' },
+                { id: 12, name: 'Receipt_Software_License.pdf', date: '2025-01-25', supplier: 'Microsoft', amount: 899.99, category: 'Receipt', status: 'Processed', statusColor: 'green' },
+                { id: 13, name: 'Statement_Credit_Card.pdf', date: '2025-01-20', supplier: 'American Express', amount: 3456.78, category: 'Statement', status: 'Pending Review', statusColor: 'yellow' },
+                { id: 14, name: 'Invoice_Utilities.pdf', date: '2025-01-15', supplier: 'City Power & Water', amount: 234.56, category: 'Invoice', status: 'Processed', statusColor: 'green' },
+                { id: 15, name: 'Receipt_Client_Dinner.jpg', date: '2025-01-10', supplier: 'The Capital Grille', amount: 345.67, category: 'Receipt', status: 'Processing', statusColor: 'blue' },
+                { id: 16, name: 'Invoice_Rent.pdf', date: '2025-01-05', supplier: 'Commercial Properties Inc.', amount: 5000.00, category: 'Invoice', status: 'Processed', statusColor: 'green' },
+                { id: 17, name: 'Receipt_Office_Supplies_Jan.jpg', date: '2025-01-03', supplier: 'Staples', amount: 123.45, category: 'Receipt', status: 'Pending Review', statusColor: 'yellow' },
+                { id: 18, name: 'Statement_Investments.pdf', date: '2025-01-01', supplier: 'Fidelity Investments', amount: 12345.67, category: 'Statement', status: 'Processed', statusColor: 'green' },
+                { id: 19, name: 'Invoice_Cleaning_Services.pdf', date: '2024-12-28', supplier: 'Clean & Shine Co.', amount: 450.00, category: 'Invoice', status: 'Processing', statusColor: 'blue' },
+                { id: 20, name: 'Receipt_Holiday_Party.jpg', date: '2024-12-20', supplier: 'Party City', amount: 567.89, category: 'Receipt', status: 'Processed', statusColor: 'green' }
+            ];
+            
+            // Pagination variables
+            let currentPage = 1;
+            const itemsPerPage = 10;
+            let filteredDocuments = [...documents];
+            
+            // Format currency
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+            }
+            
+            // Render document table
+            function renderDocumentTable() {
+                // Clear table
+                documentTableBody.innerHTML = '';
+                
+                // Calculate pagination
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, filteredDocuments.length);
+                const paginatedDocuments = filteredDocuments.slice(startIndex, endIndex);
+                
+                // Update pagination text
+                pageStart.textContent = filteredDocuments.length > 0 ? startIndex + 1 : 0;
+                pageEnd.textContent = endIndex;
+                totalDocuments.textContent = filteredDocuments.length;
+                documentCount.textContent = `Showing ${paginatedDocuments.length} of ${filteredDocuments.length} documents`;
+                
+                // Render documents
+                paginatedDocuments.forEach(doc => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-gray-50';
+                    
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="document-checkbox h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" data-id="${doc.id}">
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-gray-100 rounded-md">
+                                    ${doc.name.endsWith('.pdf') ? 
+                                        `<svg class="h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+                                        </svg>` : 
+                                        `<svg class="h-6 w-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                                        </svg>`
+                                    }
+                                </div>
+                                <div class="ml-4">
+                                    <a href="document-details.html?id=${doc.id}" class="text-sm font-medium text-blue-600 hover:text-blue-900">${doc.name}</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${doc.date}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${doc.supplier}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${formatCurrency(doc.amount)}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                ${doc.category}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${doc.statusColor}-100 text-${doc.statusColor}-800">
+                                ${doc.status}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a href="document-details.html?id=${doc.id}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                            <button type="button" class="text-red-600 hover:text-red-900 delete-document" data-id="${doc.id}">Delete</button>
+                        </td>
+                    `;
+                    
+                    documentTableBody.appendChild(row);
+                });
+                
+                // Add event listeners to checkboxes
+                document.querySelectorAll('.document-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', updateBulkActions);
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-document').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        // In a real application, this would send a request to delete the document
+                        // For this prototype, we'll just remove it from the array
+                        const index = filteredDocuments.findIndex(doc => doc.id === id);
+                        if (index !== -1) {
+                            filteredDocuments.splice(index, 1);
+                            renderDocumentTable();
+                        }
+                    });
+                });
+                
+                // Update pagination buttons
+                prevPage.disabled = currentPage === 1;
+                nextPage.disabled = endIndex >= filteredDocuments.length;
+                mobilePrevPage.disabled = currentPage === 1;
+                mobileNextPage.disabled = endIndex >= filteredDocuments.length;
+                
+                // Update pagination numbers
+                const totalPages = Math.ceil(filteredDocuments.length / itemsPerPage);
+                paginationNumbers.innerHTML = '';
+                
+                for (let i = 1; i <= totalPages; i++) {
+                    const button = document.createElement('button');
+                    button.textContent = i;
+                    button.className = i === currentPage ? 'px-1 mx-1 rounded bg-blue-600 text-white' : 'px-1 mx-1';
+                    button.addEventListener('click', function() {
+                        currentPage = i;
+                        renderDocumentTable();
+                    });
+                    paginationNumbers.appendChild(button);
+                }
+            }
+            
+            // Update bulk actions visibility
+            function updateBulkActions() {
+                const checkedBoxes = document.querySelectorAll('.document-checkbox:checked');
+                if (checkedBoxes.length > 0) {
+                    bulkActions.classList.remove('hidden');
+                    selectedCount.textContent = checkedBoxes.length;
+                } else {
+                    bulkActions.classList.add('hidden');
+                }
+            }
+            
+            // Select all checkbox
+            selectAllCheckbox.addEventListener('change', function() {
+                document.querySelectorAll('.document-checkbox').forEach(checkbox => {
+                    checkbox.checked = selectAllCheckbox.checked;
+                });
+                updateBulkActions();
+            });
+            
+            // Pagination buttons
+            prevPage.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderDocumentTable();
+                }
+            });
+            
+            nextPage.addEventListener('click', function() {
+                const totalPages = Math.ceil(filteredDocuments.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderDocumentTable();
+                }
+            });
+            
+            mobilePrevPage.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderDocumentTable();
+                }
+            });
+            
+            mobileNextPage.addEventListener('click', function() {
+                const totalPages = Math.ceil(filteredDocuments.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderDocumentTable();
+                }
+            });
+            
+            // Table density controls
+            densityCompact.addEventListener('click', function() {
+                document.querySelectorAll('#document-table-body tr').forEach(row => {
+                    row.classList.remove('py-6');
+                    row.classList.add('py-2');
+                });
+                densityCompact.classList.add('text-blue-600');
+                densityCompact.classList.remove('text-gray-400');
+                densityComfortable.classList.add('text-gray-400');
+                densityComfortable.classList.remove('text-blue-600');
+            });
+            
+            densityComfortable.addEventListener('click', function() {
+                document.querySelectorAll('#document-table-body tr').forEach(row => {
+                    row.classList.remove('py-2');
+                    row.classList.add('py-6');
+                });
+                densityComfortable.classList.add('text-blue-600');
+                densityComfortable.classList.remove('text-gray-400');
+                densityCompact.classList.add('text-gray-400');
+                densityCompact.classList.remove('text-blue-600');
+            });
+            
+            // Sorting functionality
+            document.querySelectorAll('th[data-sort]').forEach(header => {
+                header.addEventListener('click', function() {
+                    const sortField = this.getAttribute('data-sort');
+                    const currentDirection = this.getAttribute('data-direction') || 'asc';
+                    const newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+                    
+                    // Reset all headers
+                    document.querySelectorAll('th[data-sort]').forEach(h => {
+                        h.setAttribute('data-direction', '');
+                        const svg = h.querySelector('svg');
+                        svg.classList.remove('text-blue-500');
+                        svg.classList.add('text-gray-400');
+                    });
+                    
+                    // Set new direction
+                    this.setAttribute('data-direction', newDirection);
+                    const svg = this.querySelector('svg');
+                    svg.classList.remove('text-gray-400');
+                    svg.classList.add('text-blue-500');
+                    
+                    // Sort documents
+                    filteredDocuments.sort((a, b) => {
+                        let valueA, valueB;
+                        
+                        if (sortField === 'name') {
+                            valueA = a.name.toLowerCase();
+                            valueB = b.name.toLowerCase();
+                        } else if (sortField === 'date') {
+                            valueA = new Date(a.date);
+                            valueB = new Date(b.date);
+                        } else if (sortField === 'supplier') {
+                            valueA = a.supplier.toLowerCase();
+                            valueB = b.supplier.toLowerCase();
+                        } else if (sortField === 'amount') {
+                            valueA = a.amount;
+                            valueB = b.amount;
+                        }
+                        
+                        if (valueA < valueB) return newDirection === 'asc' ? -1 : 1;
+                        if (valueA > valueB) return newDirection === 'asc' ? 1 : -1;
+                        return 0;
+                    });
+                    
+                    // Reset to first page and render
+                    currentPage = 1;
+                    renderDocumentTable();
+                });
+            });
+            
+            // Filtering functionality
+            const searchInput = document.getElementById('search');
+            const statusFilter = document.getElementById('status-filter');
+            const categoryFilter = document.getElementById('category-filter');
+            const dateFrom = document.getElementById('date-from');
+            const dateTo = document.getElementById('date-to');
+            const applyFilters = document.getElementById('apply-filters');
+            const clearFilters = document.getElementById('clear-filters');
+            
+            applyFilters.addEventListener('click', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const status = statusFilter.value;
+                const category = categoryFilter.value;
+                const fromDate = dateFrom.value ? new Date(dateFrom.value) : null;
+                const toDate = dateTo.value ? new Date(dateTo.value) : null;
+                
+                filteredDocuments = documents.filter(doc => {
+                    // Search term filter
+                    if (searchTerm && !doc.name.toLowerCase().includes(searchTerm) && 
+                        !doc.supplier.toLowerCase().includes(searchTerm)) {
+                        return false;
+                    }
+                    
+                    // Status filter
+                    if (status && doc.status !== status && 
+                        !(status === 'processed' && doc.status === 'Processed') && 
+                        !(status === 'processing' && doc.status === 'Processing') && 
+                        !(status === 'pending' && doc.status === 'Pending Review')) {
+                        return false;
+                    }
+                    
+                    // Category filter
+                    if (category && doc.category !== category && 
+                        !(category === 'invoice' && doc.category === 'Invoice') && 
+                        !(category === 'receipt' && doc.category === 'Receipt') && 
+                        !(category === 'statement' && doc.category === 'Statement') && 
+                        !(category === 'other' && doc.category === 'Other')) {
+                        return false;
+                    }
+                    
+                    // Date range filter
+                    const docDate = new Date(doc.date);
+                    if (fromDate && docDate < fromDate) {
+                        return false;
+                    }
+                    if (toDate && docDate > toDate) {
+                        return false;
+                    }
+                    
+                    return true;
+                });
+                
+                currentPage = 1;
+                renderDocumentTable();
+            });
+            
+            clearFilters.addEventListener('click', function() {
+                searchInput.value = '';
+                statusFilter.value = '';
+                categoryFilter.value = '';
+                dateFrom.value = '';
+                dateTo.value = '';
+                
+                filteredDocuments = [...documents];
+                currentPage = 1;
+                renderDocumentTable();
+            });
+            
+            // Initial render
+            renderDocumentTable();
+            
+            // File Upload
+            const dropArea = document.getElementById('drop-area');
+            const fileUpload = document.getElementById('file-upload');
+            const fileList = document.getElementById('file-list');
+            const fileItems = document.getElementById('file-items');
+            const uploadButton = document.getElementById('upload-button');
+            const successModal = document.getElementById('success-modal');
+            const closeModal = document.getElementById('close-modal');
+            const recentUploads = document.getElementById('recent-uploads');
+            
+            // Files array to store selected files
+            let files = [];
+            
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            // Highlight drop area when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            // Handle dropped files
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            // Handle selected files from file input
+            fileUpload.addEventListener('change', handleFiles, false);
+            
+            // Click on drop area should trigger file input
+            dropArea.addEventListener('click', function() {
+                fileUpload.click();
+            });
+            
+            // Handle keyboard accessibility for drop area
+            dropArea.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileUpload.click();
+                }
+            });
+            
+            // Upload button click handler
+            uploadButton.addEventListener('click', uploadFiles, false);
+            
+            // Close modal button
+            closeModal.addEventListener('click', function() {
+                successModal.classList.add('hidden');
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            function highlight() {
+                dropArea.classList.add('active');
+            }
+            
+            function unhighlight() {
+                dropArea.classList.remove('active');
+            }
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const newFiles = dt.files;
+                handleFiles({ target: { files: newFiles } });
+            }
+            
+            function handleFiles(e) {
+                const newFiles = [...e.target.files];
+                
+                // Validate files
+                const validFiles = newFiles.filter(file => {
+                    const fileType = file.type;
+                    const fileSize = file.size / 1024 / 1024; // Convert to MB
+                    
+                    // Check file type
+                    const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+                    const isValidType = validTypes.includes(fileType);
+                    
+                    // Check file size (max 10MB)
+                    const isValidSize = fileSize <= 10;
+                    
+                    if (!isValidType) {
+                        alert(`File "${file.name}" is not a supported format. Please upload PDF, JPG, or PNG files.`);
+                    } else if (!isValidSize) {
+                        alert(`File "${file.name}" exceeds the 10MB size limit.`);
+                    }
+                    
+                    return isValidType && isValidSize;
+                });
+                
+                if (validFiles.length > 0) {
+                    files = [...files, ...validFiles];
+                    updateFileList();
+                    fileList.classList.remove('hidden');
+                    uploadButton.disabled = false;
+                }
+                
+                // Reset file input
+                fileUpload.value = '';
+            }
+            
+            function updateFileList() {
+                // Clear the list
+                fileItems.innerHTML = '';
+                
+                // Add each file to the list
+                files.forEach((file, index) => {
+                    const fileItem = document.createElement('li');
+                    fileItem.className = 'file-item pl-3 pr-4 py-3 flex items-center justify-between text-sm';
+                    
+                    // Determine file icon based on type
+                    let fileIcon = `
+                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+                        </svg>
+                    `;
+                    
+                    if (file.type === 'application/pdf') {
+                        fileIcon = `
+                            <svg class="flex-shrink-0 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+                            </svg>
+                        `;
+                    } else if (file.type.startsWith('image/')) {
+                        fileIcon = `
+                            <svg class="flex-shrink-0 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                            </svg>
+                        `;
+                    }
+                    
+                    // Format file size
+                    const fileSize = (file.size / 1024).toFixed(1) + ' KB';
+                    
+                    fileItem.innerHTML = `
+                        <div class="flex items-center">
+                            ${fileIcon}
+                            <span class="ml-2 flex-1 w-0 truncate">${file.name}</span>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 flex items-center">
+                            <span class="text-gray-500 mr-2">${fileSize}</span>
+                            <button type="button" data-index="${index}" class="remove-file text-red-600 hover:text-red-900">
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+                    
+                    fileItems.appendChild(fileItem);
+                });
+                
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-file').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        files.splice(index, 1);
+                        updateFileList();
+                        
+                        if (files.length === 0) {
+                            fileList.classList.add('hidden');
+                            uploadButton.disabled = true;
+                        }
+                    });
+                });
+            }
+            
+            function uploadFiles() {
+                if (files.length === 0) return;
+                
+                // In a real application, this would use FormData and fetch/XMLHttpRequest to upload files
+                // For this prototype, we'll simulate the upload process
+                
+                uploadButton.disabled = true;
+                uploadButton.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Uploading...
+                `;
+                
+                // Simulate upload delay
+                setTimeout(() => {
+                    // Add uploaded files to recent uploads
+                    const owner = document.getElementById('documentOwner').value === 'current' ? 'John Doe' : 'Company';
+                    const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+                    
+                    files.forEach(file => {
+                        const listItem = document.createElement('li');
+                        
+                        // Determine status randomly for demo
+                        const statuses = ['Processed', 'Processing', 'Pending Review'];
+                        const statusColors = ['green', 'blue', 'yellow'];
+                        const randomIndex = Math.floor(Math.random() * statuses.length);
+                        const status = statuses[randomIndex];
+                        const statusColor = statusColors[randomIndex];
+                        
+                        listItem.innerHTML = `
+                            <div class="px-4 py-4 sm:px-6">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-medium text-blue-600 truncate">
+                                        ${file.name}
+                                    </p>
+                                    <div class="ml-2 flex-shrink-0 flex">
+                                        <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${statusColor}-100 text-${statusColor}-800">
+                                            ${status}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="mt-2 sm:flex sm:justify-between">
+                                    <div class="sm:flex">
+                                        <p class="flex items-center text-sm text-gray-500">
+                                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                            </svg>
+                                            ${owner}
+                                        </p>
+                                    </div>
+                                    <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                                        </svg>
+                                        <p>
+                                            Uploaded on <time datetime="${currentDate}">${currentDate}</time>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Add to the beginning of the list
+                        if (recentUploads.firstChild) {
+                            recentUploads.insertBefore(listItem, recentUploads.firstChild);
+                        } else {
+                            recentUploads.appendChild(listItem);
+                        }
+                    });
+                    
+                    // Reset the file list
+                    files = [];
+                    fileList.classList.add('hidden');
+                    
+                    // Reset the upload button
+                    uploadButton.disabled = true;
+                    uploadButton.innerHTML = `
+                        <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Upload Documents
+                    `;
+                    
+                    // Show success modal
+                    successModal.classList.remove('hidden');
+                }, 2000);
+            }
+            
+            // Initialize with some example recent uploads
+            const exampleUploads = [
+                { name: 'Invoice_March2025.pdf', owner: 'John Doe', date: '2025-03-17', status: 'Processed', statusColor: 'green' },
+                { name: 'Receipt_Office_Supplies.jpg', owner: 'Company', date: '2025-03-15', status: 'Pending Review', statusColor: 'yellow' }
+            ];
+            
+            exampleUploads.forEach(upload => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <div class="px-4 py-4 sm:px-6">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm font-medium text-blue-600 truncate">
+                                ${upload.name}
+                            </p>
+                            <div class="ml-2 flex-shrink-0 flex">
+                                <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${upload.statusColor}-100 text-${upload.statusColor}-800">
+                                    ${upload.status}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-2 sm:flex sm:justify-between">
+                            <div class="sm:flex">
+                                <p class="flex items-center text-sm text-gray-500">
+                                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                    </svg>
+                                    ${upload.owner}
+                                </p>
+                            </div>
+                            <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                                </svg>
+                                <p>
+                                    Uploaded on <time datetime="${upload.date}">${upload.date}</time>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                recentUploads.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Cifra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-blue-600 text-lg font-bold">Cifra</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="dashboard.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Dashboard
+                        </a>
+                        <a href="documents.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Documents
+                        </a>
+                        <a href="reports.html" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Reports
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <div class="ml-3 relative">
+                        <div>
+                            <button type="button" class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button">
+                                <span class="sr-only">Open user menu</span>
+                                <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <span class="text-blue-600 font-medium">JD</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="user-menu">
+                            <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700">Settings</a>
+                            <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex items-center sm:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu, show/hide based on menu state -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="dashboard.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Dashboard</a>
+                <a href="documents.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Documents</a>
+                <a href="reports.html" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Reports</a>
+                <a href="settings.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Settings</a>
+                <a href="login.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Sign out</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-semibold text-gray-900">Reports</h1>
+                    <p class="mt-1 text-sm text-gray-600">
+                        Generate and export financial reports.
+                    </p>
+                </div>
+                <div>
+                    <button id="show-export-section" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Export Data
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Tab Navigation -->
+            <div class="mt-4 border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8">
+                    <a href="#" id="tab-reports" class="border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Generate Reports
+                    </a>
+                    <a href="#" id="tab-export" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Export Data
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Reports Section (default visible) -->
+            <div id="reports-section" class="mt-6">
+                <!-- Report Parameters -->
+                <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mb-6">
+                    <div class="md:grid md:grid-cols-4 md:gap-6">
+                        <div class="md:col-span-1">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Report Parameters</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Select the parameters for your report.
+                            </p>
+                        </div>
+                        <div class="mt-5 md:mt-0 md:col-span-3">
+                            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                                <div class="sm:col-span-3">
+                                    <label for="report-type" class="block text-sm font-medium text-gray-700">Report Type</label>
+                                    <select id="report-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                        <option value="category">Summary by Category</option>
+                                        <option value="supplier">Summary by Supplier</option>
+                                        <option value="transactions">Transaction List</option>
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label for="date-range" class="block text-sm font-medium text-gray-700">Date Range</label>
+                                    <select id="date-range" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                        <option value="this-month">This Month</option>
+                                        <option value="last-month">Last Month</option>
+                                        <option value="this-year">This Year</option>
+                                        <option value="last-year">Last Year</option>
+                                        <option value="custom">Custom Range</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Custom Date Range (hidden by default) -->
+                                <div id="custom-date-range" class="sm:col-span-3 hidden">
+                                    <label for="date-from" class="block text-sm font-medium text-gray-700">From</label>
+                                    <input type="date" id="date-from" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <div id="custom-date-to" class="sm:col-span-3 hidden">
+                                    <label for="date-to" class="block text-sm font-medium text-gray-700">To</label>
+                                    <input type="date" id="date-to" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                
+                                <div class="sm:col-span-3">
+                                    <label for="category-filter" class="block text-sm font-medium text-gray-700">Category Filter (Optional)</label>
+                                    <select id="category-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                        <option value="">All Categories</option>
+                                        <option value="invoice">Invoice</option>
+                                        <option value="receipt">Receipt</option>
+                                        <option value="statement">Statement</option>
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label for="supplier-filter" class="block text-sm font-medium text-gray-700">Supplier Filter (Optional)</label>
+                                    <select id="supplier-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                        <option value="">All Suppliers</option>
+                                        <option value="acme">Acme Corporation</option>
+                                        <option value="office-depot">Office Depot</option>
+                                        <option value="tech-solutions">Tech Solutions Inc.</option>
+                                        <option value="delta">Delta Airlines</option>
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-6 flex justify-end">
+                                    <button type="button" id="generate-report" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        Generate Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Report Display (hidden by default) -->
+                <div id="report-display" class="bg-white shadow sm:rounded-lg overflow-hidden hidden">
+                    <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="report-title">
+                                Summary by Category
+                            </h3>
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500" id="report-subtitle">
+                                March 2025
+                            </p>
+                        </div>
+                        <div>
+                            <button id="print-report" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg class="mr-2 -ml-1 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" />
+                                </svg>
+                                Print
+                            </button>
+                            <button id="download-pdf" class="ml-3 inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg class="mr-2 -ml-1 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                                Download PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Summary Section -->
+                    <div class="px-4 py-5 sm:p-6 border-t border-gray-200">
+                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+                            <div class="bg-gray-50 overflow-hidden shadow rounded-lg">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <dl>
+                                        <dt class="text-sm font-medium text-gray-500 truncate">
+                                            Total Documents
+                                        </dt>
+                                        <dd class="mt-1 text-3xl font-semibold text-gray-900" id="total-documents">
+                                            20
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 overflow-hidden shadow rounded-lg">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <dl>
+                                        <dt class="text-sm font-medium text-gray-500 truncate">
+                                            Total Amount
+                                        </dt>
+                                        <dd class="mt-1 text-3xl font-semibold text-gray-900" id="total-amount">
+                                            $12,345.67
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 overflow-hidden shadow rounded-lg">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <dl>
+                                        <dt class="text-sm font-medium text-gray-500 truncate">
+                                            Average Amount
+                                        </dt>
+                                        <dd class="mt-1 text-3xl font-semibold text-gray-900" id="average-amount">
+                                            $617.28
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chart Section -->
+                    <div class="px-4 py-5 sm:p-6 border-t border-gray-200">
+                        <div class="flex justify-center">
+                            <div class="w-full max-w-3xl">
+                                <canvas id="report-chart" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Data Table -->
+                    <div class="px-4 py-5 sm:p-6 border-t border-gray-200">
+                        <div class="flex flex-col">
+                            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr id="report-table-header">
+                                                    <!-- Table headers will be populated by JavaScript -->
+                                                </tr>
+                                            </thead>
+                                            <tbody id="report-table-body" class="bg-white divide-y divide-gray-200">
+                                                <!-- Table rows will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Export Section (hidden by default) -->
+            <div id="export-section" class="mt-6 hidden">
+                <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+                    <div class="md:grid md:grid-cols-3 md:gap-6">
+                        <div class="md:col-span-1">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Export Options</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Customize your data export.
+                            </p>
+                        </div>
+                        <div class="mt-5 md:mt-0 md:col-span-2">
+                            <form id="export-form">
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="export-format" class="block text-sm font-medium text-gray-700">Export Format</label>
+                                        <select id="export-format" name="export-format" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                            <option value="csv-basic">CSV (Basic)</option>
+                                            <option value="csv-advanced">CSV (Advanced)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="date-range-export" class="block text-sm font-medium text-gray-700">Date Range</label>
+                                        <select id="date-range-export" name="date-range-export" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                            <option value="all-time">All Time</option>
+                                            <option value="this-month">This Month</option>
+                                            <option value="last-month">Last Month</option>
+                                            <option value="this-year">This Year</option>
+                                            <option value="last-year">Last Year</option>
+                                            <option value="custom">Custom Range</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- Custom Date Range for Export (hidden by default) -->
+                                    <div id="custom-date-range-export-from" class="col-span-6 sm:col-span-3 hidden">
+                                        <label for="date-from-export" class="block text-sm font-medium text-gray-700">From</label>
+                                        <input type="date" id="date-from-export" name="date-from-export" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                    <div id="custom-date-range-export-to" class="col-span-6 sm:col-span-3 hidden">
+                                        <label for="date-to-export" class="block text-sm font-medium text-gray-700">To</label>
+                                        <input type="date" id="date-to-export" name="date-to-export" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                    
+                                    <div class="col-span-6">
+                                        <fieldset>
+                                            <legend class="text-base font-medium text-gray-900">Data Points to Include</legend>
+                                            <div class="mt-4 space-y-4">
+                                                <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+                                                    <div class="flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="include-date" name="include-date" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="include-date" class="font-medium text-gray-700">Date</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="include-supplier" name="include-supplier" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="include-supplier" class="font-medium text-gray-700">Supplier</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="include-amount" name="include-amount" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="include-amount" class="font-medium text-gray-700">Amount</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="include-category" name="include-category" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="include-category" class="font-medium text-gray-700">Category</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="include-tax" name="include-tax" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="include-tax" class="font-medium text-gray-700">Tax</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="include-description" name="include-description" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="include-description" class="font-medium text-gray-700">Description</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="include-status" name="include-status" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="include-status" class="font-medium text-gray-700">Status</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="include-image-link" name="include-image-link" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="include-image-link" class="font-medium text-gray-700">Image Link</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 flex justify-end">
+                                    <button type="button" id="export-button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        Generate Export
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Export Result (hidden by default) -->
+                <div id="export-result" class="mt-6 bg-white shadow sm:rounded-lg overflow-hidden hidden">
+                    <div class="px-4 py-5 sm:px-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            Export Ready
+                        </h3>
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                            Your data has been exported successfully.
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+                        <div class="bg-gray-50 p-4 rounded-md">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-green-800">
+                                        Your export file is ready for download.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 flex justify-center">
+                            <a href="#" id="download-export" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                                Download CSV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // User menu toggle
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            userMenuButton.addEventListener('click', function() {
+                userMenu.classList.toggle('hidden');
+            });
+            
+            // Close the menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                    userMenu.classList.add('hidden');
+                }
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Logout functionality
+            const logoutButton = document.getElementById('logoutButton');
+            
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function() {
+                    window.location.href = 'login.html';
+                });
+            }
+            
+            // Tab switching
+            const tabReports = document.getElementById('tab-reports');
+            const tabExport = document.getElementById('tab-export');
+            const reportsSection = document.getElementById('reports-section');
+            const exportSection = document.getElementById('export-section');
+            const showExportButton = document.getElementById('show-export-section');
+            
+            tabReports.addEventListener('click', function(e) {
+                e.preventDefault();
+                tabReports.classList.add('border-blue-500', 'text-blue-600');
+                tabReports.classList.remove('border-transparent', 'text-gray-500');
+                tabExport.classList.remove('border-blue-500', 'text-blue-600');
+                tabExport.classList.add('border-transparent', 'text-gray-500');
+                reportsSection.classList.remove('hidden');
+                exportSection.classList.add('hidden');
+            });
+            
+            tabExport.addEventListener('click', function(e) {
+                e.preventDefault();
+                tabExport.classList.add('border-blue-500', 'text-blue-600');
+                tabExport.classList.remove('border-transparent', 'text-gray-500');
+                tabReports.classList.remove('border-blue-500', 'text-blue-600');
+                tabReports.classList.add('border-transparent', 'text-gray-500');
+                exportSection.classList.remove('hidden');
+                reportsSection.classList.add('hidden');
+            });
+            
+            showExportButton.addEventListener('click', function() {
+                tabExport.click();
+            });
+            
+            // Custom date range toggle for reports
+            const dateRange = document.getElementById('date-range');
+            const customDateRange = document.getElementById('custom-date-range');
+            const customDateTo = document.getElementById('custom-date-to');
+            
+            dateRange.addEventListener('change', function() {
+                if (dateRange.value === 'custom') {
+                    customDateRange.classList.remove('hidden');
+                    customDateTo.classList.remove('hidden');
+                } else {
+                    customDateRange.classList.add('hidden');
+                    customDateTo.classList.add('hidden');
+                }
+            });
+            
+            // Custom date range toggle for export
+            const dateRangeExport = document.getElementById('date-range-export');
+            const customDateRangeExportFrom = document.getElementById('custom-date-range-export-from');
+            const customDateRangeExportTo = document.getElementById('custom-date-range-export-to');
+            
+            dateRangeExport.addEventListener('change', function() {
+                if (dateRangeExport.value === 'custom') {
+                    customDateRangeExportFrom.classList.remove('hidden');
+                    customDateRangeExportTo.classList.remove('hidden');
+                } else {
+                    customDateRangeExportFrom.classList.add('hidden');
+                    customDateRangeExportTo.classList.add('hidden');
+                }
+            });
+            
+            // Sample document data
+            const documents = [
+                { id: 1, name: 'Invoice_March2025.pdf', date: '2025-03-17', supplier: 'Acme Corporation', amount: 1250.00, category: 'Invoice', status: 'Processed', tax: 125.00, description: 'Office supplies and equipment for Q1 2025' },
+                { id: 2, name: 'Receipt_Office_Supplies.jpg', date: '2025-03-15', supplier: 'Office Depot', amount: 345.67, category: 'Receipt', status: 'Pending Review', tax: 34.57, description: 'Paper, pens, and other office supplies' },
+                { id: 3, name: 'Statement_Q1_2025.pdf', date: '2025-03-10', supplier: 'Bank of America', amount: 5432.10, category: 'Statement', status: 'Processing', tax: 0, description: 'Q1 2025 bank statement' },
+                { id: 4, name: 'Invoice_IT_Services.pdf', date: '2025-03-05', supplier: 'Tech Solutions Inc.', amount: 2500.00, category: 'Invoice', status: 'Processed', tax: 250.00, description: 'IT support services for March' },
+                { id: 5, name: 'Receipt_Travel_Expenses.jpg', date: '2025-02-28', supplier: 'Delta Airlines', amount: 876.54, category: 'Receipt', status: 'Processed', tax: 87.65, description: 'Business travel to New York' },
+                { id: 6, name: 'Invoice_Marketing.pdf', date: '2025-02-25', supplier: 'Marketing Experts LLC', amount: 3750.00, category: 'Invoice', status: 'Pending Review', tax: 375.00, description: 'Marketing campaign for Q1' },
+                { id: 7, name: 'Receipt_Office_Lunch.jpg', date: '2025-02-20', supplier: 'Panera Bread', amount: 125.45, category: 'Receipt', status: 'Processing', tax: 12.55, description: 'Team lunch meeting' },
+                { id: 8, name: 'Invoice_Legal_Services.pdf', date: '2025-02-15', supplier: 'Legal Advisors Inc.', amount: 1800.00, category: 'Invoice', status: 'Processed', tax: 180.00, description: 'Legal consultation for contract review' },
+                { id: 9, name: 'Statement_Insurance.pdf', date: '2025-02-10', supplier: 'Allstate Insurance', amount: 567.89, category: 'Statement', status: 'Pending Review', tax: 0, description: 'Business insurance statement' },
+                { id: 10, name: 'Receipt_Office_Furniture.jpg', date: '2025-02-05', supplier: 'IKEA', amount: 2345.67, category: 'Receipt', status: 'Processed', tax: 234.57, description: 'Office furniture for new hires' },
+                { id: 11, name: 'Invoice_Consulting.pdf', date: '2025-01-30', supplier: 'Business Consultants LLC', amount: 4500.00, category: 'Invoice', status: 'Processing', tax: 450.00, description: 'Business strategy consulting' },
+                { id: 12, name: 'Receipt_Software_License.pdf', date: '2025-01-25', supplier: 'Microsoft', amount: 899.99, category: 'Receipt', status: 'Processed', tax: 90.00, description: 'Software licenses for new employees' },
+                { id: 13, name: 'Statement_Credit_Card.pdf', date: '2025-01-20', supplier: 'American Express', amount: 3456.78, category: 'Statement', status: 'Pending Review', tax: 0, description: 'Company credit card statement' },
+                { id: 14, name: 'Invoice_Utilities.pdf', date: '2025-01-15', supplier: 'City Power & Water', amount: 234.56, category: 'Invoice', status: 'Processed', tax: 23.46, description: 'Office utilities for January' },
+                { id: 15, name: 'Receipt_Client_Dinner.jpg', date: '2025-01-10', supplier: 'The Capital Grille', amount: 345.67, category: 'Receipt', status: 'Processing', tax: 34.57, description: 'Client dinner meeting' },
+                { id: 16, name: 'Invoice_Rent.pdf', date: '2025-01-05', supplier: 'Commercial Properties Inc.', amount: 5000.00, category: 'Invoice', status: 'Processed', tax: 0, description: 'Office rent for January' },
+                { id: 17, name: 'Receipt_Office_Supplies_Jan.jpg', date: '2025-01-03', supplier: 'Staples', amount: 123.45, category: 'Receipt', status: 'Pending Review', tax: 12.35, description: 'Office supplies for January' },
+                { id: 18, name: 'Statement_Investments.pdf', date: '2025-01-01', supplier: 'Fidelity Investments', amount: 12345.67, category: 'Statement', status: 'Processed', tax: 0, description: 'Investment portfolio statement' },
+                { id: 19, name: 'Invoice_Cleaning_Services.pdf', date: '2024-12-28', supplier: 'Clean & Shine Co.', amount: 450.00, category: 'Invoice', status: 'Processing', tax: 45.00, description: 'Office cleaning services' },
+                { id: 20, name: 'Receipt_Holiday_Party.jpg', date: '2024-12-20', supplier: 'Party City', amount: 567.89, category: 'Receipt', status: 'Processed', tax: 56.79, description: 'Company holiday party supplies' }
+            ];
+            
+            // Format currency
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+            }
+            
+            // Generate report
+            const generateReportButton = document.getElementById('generate-report');
+            const reportDisplay = document.getElementById('report-display');
+            const reportTitle = document.getElementById('report-title');
+            const reportSubtitle = document.getElementById('report-subtitle');
+            const totalDocuments = document.getElementById('total-documents');
+            const totalAmount = document.getElementById('total-amount');
+            const averageAmount = document.getElementById('average-amount');
+            const reportTableHeader = document.getElementById('report-table-header');
+            const reportTableBody = document.getElementById('report-table-body');
+            
+            generateReportButton.addEventListener('click', function() {
+                const reportType = document.getElementById('report-type').value;
+                const dateRangeValue = document.getElementById('date-range').value;
+                const categoryFilter = document.getElementById('category-filter').value;
+                const supplierFilter = document.getElementById('supplier-filter').value;
+                
+                // Filter documents based on selected criteria
+                let filteredDocuments = [...documents];
+                
+                // Apply date range filter
+                if (dateRangeValue !== 'all-time') {
+                    const now = new Date();
+                    let startDate, endDate;
+                    
+                    if (dateRangeValue === 'this-month') {
+                        startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                        endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                    } else if (dateRangeValue === 'last-month') {
+                        startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                        endDate = new Date(now.getFullYear(), now.getMonth(), 0);
+                    } else if (dateRangeValue === 'this-year') {
+                        startDate = new Date(now.getFullYear(), 0, 1);
+                        endDate = new Date(now.getFullYear(), 11, 31);
+                    } else if (dateRangeValue === 'last-year') {
+                        startDate = new Date(now.getFullYear() - 1, 0, 1);
+                        endDate = new Date(now.getFullYear() - 1, 11, 31);
+                    } else if (dateRangeValue === 'custom') {
+                        const fromDate = document.getElementById('date-from').value;
+                        const toDate = document.getElementById('date-to').value;
+                        
+                        if (fromDate) startDate = new Date(fromDate);
+                        if (toDate) endDate = new Date(toDate);
+                    }
+                    
+                    if (startDate) {
+                        filteredDocuments = filteredDocuments.filter(doc => new Date(doc.date) >= startDate);
+                    }
+                    
+                    if (endDate) {
+                        filteredDocuments = filteredDocuments.filter(doc => new Date(doc.date) <= endDate);
+                    }
+                }
+                
+                // Apply category filter
+                if (categoryFilter) {
+                    filteredDocuments = filteredDocuments.filter(doc => 
+                        doc.category.toLowerCase() === categoryFilter.toLowerCase());
+                }
+                
+                // Apply supplier filter
+                if (supplierFilter) {
+                    filteredDocuments = filteredDocuments.filter(doc => 
+                        doc.supplier.toLowerCase().includes(supplierFilter.toLowerCase()));
+                }
+                
+                // Calculate summary statistics
+                const docCount = filteredDocuments.length;
+                const totalAmt = filteredDocuments.reduce((sum, doc) => sum + doc.amount, 0);
+                const avgAmt = docCount > 0 ? totalAmt / docCount : 0;
+                
+                totalDocuments.textContent = docCount;
+                totalAmount.textContent = formatCurrency(totalAmt);
+                averageAmount.textContent = formatCurrency(avgAmt);
+                
+                // Set report title and subtitle
+                let title, subtitle;
+                
+                if (reportType === 'category') {
+                    title = 'Summary by Category';
+                } else if (reportType === 'supplier') {
+                    title = 'Summary by Supplier';
+                } else {
+                    title = 'Transaction List';
+                }
+                
+                if (dateRangeValue === 'this-month') {
+                    subtitle = 'Current Month';
+                } else if (dateRangeValue === 'last-month') {
+                    subtitle = 'Previous Month';
+                } else if (dateRangeValue === 'this-year') {
+                    subtitle = 'Current Year';
+                } else if (dateRangeValue === 'last-year') {
+                    subtitle = 'Previous Year';
+                } else if (dateRangeValue === 'custom') {
+                    const fromDate = document.getElementById('date-from').value;
+                    const toDate = document.getElementById('date-to').value;
+                    subtitle = `${fromDate} to ${toDate}`;
+                } else {
+                    subtitle = 'All Time';
+                }
+                
+                reportTitle.textContent = title;
+                reportSubtitle.textContent = subtitle;
+                
+                // Generate report table
+                reportTableHeader.innerHTML = '';
+                reportTableBody.innerHTML = '';
+                
+                if (reportType === 'category') {
+                    // Group by category
+                    const categoryData = {};
+                    
+                    filteredDocuments.forEach(doc => {
+                        if (!categoryData[doc.category]) {
+                            categoryData[doc.category] = {
+                                count: 0,
+                                total: 0
+                            };
+                        }
+                        
+                        categoryData[doc.category].count += 1;
+                        categoryData[doc.category].total += doc.amount;
+                    });
+                    
+                    // Create table header
+                    const headerRow = document.createElement('tr');
+                    headerRow.innerHTML = `
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Document Count</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Amount</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Average Amount</th>
+                    `;
+                    reportTableHeader.appendChild(headerRow);
+                    
+                    // Create table rows
+                    Object.keys(categoryData).forEach(category => {
+                        const row = document.createElement('tr');
+                        const data = categoryData[category];
+                        const avgAmount = data.count > 0 ? data.total / data.count : 0;
+                        
+                        row.innerHTML = `
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${category}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${data.count}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatCurrency(data.total)}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatCurrency(avgAmount)}</td>
+                        `;
+                        
+                        reportTableBody.appendChild(row);
+                    });
+                    
+                    // Create chart
+                    const ctx = document.getElementById('report-chart').getContext('2d');
+                    
+                    // Destroy existing chart if it exists
+                    if (window.reportChart) {
+                        window.reportChart.destroy();
+                    }
+                    
+                    const categories = Object.keys(categoryData);
+                    const amounts = categories.map(category => categoryData[category].total);
+                    const backgroundColors = [
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)'
+                    ];
+                    
+                    window.reportChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: categories,
+                            datasets: [{
+                                label: 'Total Amount by Category',
+                                data: amounts,
+                                backgroundColor: backgroundColors.slice(0, categories.length),
+                                borderColor: backgroundColors.slice(0, categories.length).map(color => color.replace('0.6', '1')),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return '$' + value.toLocaleString();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                } else if (reportType === 'supplier') {
+                    // Group by supplier
+                    const supplierData = {};
+                    
+                    filteredDocuments.forEach(doc => {
+                        if (!supplierData[doc.supplier]) {
+                            supplierData[doc.supplier] = {
+                                count: 0,
+                                total: 0
+                            };
+                        }
+                        
+                        supplierData[doc.supplier].count += 1;
+                        supplierData[doc.supplier].total += doc.amount;
+                    });
+                    
+                    // Create table header
+                    const headerRow = document.createElement('tr');
+                    headerRow.innerHTML = `
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Document Count</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Amount</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Average Amount</th>
+                    `;
+                    reportTableHeader.appendChild(headerRow);
+                    
+                    // Create table rows
+                    Object.keys(supplierData).forEach(supplier => {
+                        const row = document.createElement('tr');
+                        const data = supplierData[supplier];
+                        const avgAmount = data.count > 0 ? data.total / data.count : 0;
+                        
+                        row.innerHTML = `
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${supplier}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${data.count}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatCurrency(data.total)}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatCurrency(avgAmount)}</td>
+                        `;
+                        
+                        reportTableBody.appendChild(row);
+                    });
+                    
+                    // Create chart
+                    const ctx = document.getElementById('report-chart').getContext('2d');
+                    
+                    // Destroy existing chart if it exists
+                    if (window.reportChart) {
+                        window.reportChart.destroy();
+                    }
+                    
+                    // Get top 5 suppliers by amount
+                    const topSuppliers = Object.keys(supplierData)
+                        .sort((a, b) => supplierData[b].total - supplierData[a].total)
+                        .slice(0, 5);
+                    
+                    const amounts = topSuppliers.map(supplier => supplierData[supplier].total);
+                    const backgroundColors = [
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)'
+                    ];
+                    
+                    window.reportChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: topSuppliers,
+                            datasets: [{
+                                label: 'Total Amount by Supplier',
+                                data: amounts,
+                                backgroundColor: backgroundColors.slice(0, topSuppliers.length),
+                                borderColor: backgroundColors.slice(0, topSuppliers.length).map(color => color.replace('0.6', '1')),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const label = context.label || '';
+                                            const value = context.raw || 0;
+                                            return `${label}: ${formatCurrency(value)}`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                } else {
+                    // Transaction list
+                    // Create table header
+                    const headerRow = document.createElement('tr');
+                    headerRow.innerHTML = `
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Document</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    `;
+                    reportTableHeader.appendChild(headerRow);
+                    
+                    // Create table rows
+                    filteredDocuments.forEach(doc => {
+                        const row = document.createElement('tr');
+                        
+                        row.innerHTML = `
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${doc.date}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">${doc.name}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${doc.supplier}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${doc.category}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatCurrency(doc.amount)}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${doc.status === 'Processed' ? 'green' : doc.status === 'Processing' ? 'blue' : 'yellow'}-100 text-${doc.status === 'Processed' ? 'green' : doc.status === 'Processing' ? 'blue' : 'yellow'}-800">
+                                    ${doc.status}
+                                </span>
+                            </td>
+                        `;
+                        
+                        reportTableBody.appendChild(row);
+                    });
+                    
+                    // Create chart
+                    const ctx = document.getElementById('report-chart').getContext('2d');
+                    
+                    // Destroy existing chart if it exists
+                    if (window.reportChart) {
+                        window.reportChart.destroy();
+                    }
+                    
+                    // Group by month
+                    const monthlyData = {};
+                    
+                    filteredDocuments.forEach(doc => {
+                        const date = new Date(doc.date);
+                        const monthYear = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+                        
+                        if (!monthlyData[monthYear]) {
+                            monthlyData[monthYear] = 0;
+                        }
+                        
+                        monthlyData[monthYear] += doc.amount;
+                    });
+                    
+                    const months = Object.keys(monthlyData).sort();
+                    const amounts = months.map(month => monthlyData[month]);
+                    
+                    window.reportChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: months,
+                            datasets: [{
+                                label: 'Monthly Totals',
+                                data: amounts,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 2,
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return '$' + value.toLocaleString();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Show report display
+                reportDisplay.classList.remove('hidden');
+            });
+            
+            // Print report
+            const printReportButton = document.getElementById('print-report');
+            
+            printReportButton.addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Export functionality
+            const exportButton = document.getElementById('export-button');
+            const exportResult = document.getElementById('export-result');
+            const downloadExport = document.getElementById('download-export');
+            
+            exportButton.addEventListener('click', function() {
+                // Get export options
+                const exportFormat = document.getElementById('export-format').value;
+                const dateRangeExportValue = document.getElementById('date-range-export').value;
+                
+                // Get selected data points
+                const includeDate = document.getElementById('include-date').checked;
+                const includeSupplier = document.getElementById('include-supplier').checked;
+                const includeAmount = document.getElementById('include-amount').checked;
+                const includeCategory = document.getElementById('include-category').checked;
+                const includeTax = document.getElementById('include-tax').checked;
+                const includeDescription = document.getElementById('include-description').checked;
+                const includeStatus = document.getElementById('include-status').checked;
+                const includeImageLink = document.getElementById('include-image-link').checked;
+                
+                // Filter documents based on date range
+                let filteredDocuments = [...documents];
+                
+                if (dateRangeExportValue !== 'all-time') {
+                    const now = new Date();
+                    let startDate, endDate;
+                    
+                    if (dateRangeExportValue === 'this-month') {
+                        startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                        endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                    } else if (dateRangeExportValue === 'last-month') {
+                        startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                        endDate = new Date(now.getFullYear(), now.getMonth(), 0);
+                    } else if (dateRangeExportValue === 'this-year') {
+                        startDate = new Date(now.getFullYear(), 0, 1);
+                        endDate = new Date(now.getFullYear(), 11, 31);
+                    } else if (dateRangeExportValue === 'last-year') {
+                        startDate = new Date(now.getFullYear() - 1, 0, 1);
+                        endDate = new Date(now.getFullYear() - 1, 11, 31);
+                    } else if (dateRangeExportValue === 'custom') {
+                        const fromDate = document.getElementById('date-from-export').value;
+                        const toDate = document.getElementById('date-to-export').value;
+                        
+                        if (fromDate) startDate = new Date(fromDate);
+                        if (toDate) endDate = new Date(toDate);
+                    }
+                    
+                    if (startDate) {
+                        filteredDocuments = filteredDocuments.filter(doc => new Date(doc.date) >= startDate);
+                    }
+                    
+                    if (endDate) {
+                        filteredDocuments = filteredDocuments.filter(doc => new Date(doc.date) <= endDate);
+                    }
+                }
+                
+                // Generate CSV content
+                let csvContent = '';
+                
+                // Add header row
+                const headers = [];
+                if (includeDate) headers.push('Date');
+                if (includeSupplier) headers.push('Supplier');
+                if (includeAmount) headers.push('Amount');
+                if (includeCategory) headers.push('Category');
+                if (includeTax) headers.push('Tax');
+                if (includeDescription) headers.push('Description');
+                if (includeStatus) headers.push('Status');
+                if (includeImageLink) headers.push('Image Link');
+                
+                csvContent += headers.join(',') + '\n';
+                
+                // Add data rows
+                filteredDocuments.forEach(doc => {
+                    const row = [];
+                    if (includeDate) row.push(`"${doc.date}"`);
+                    if (includeSupplier) row.push(`"${doc.supplier}"`);
+                    if (includeAmount) row.push(doc.amount);
+                    if (includeCategory) row.push(`"${doc.category}"`);
+                    if (includeTax) row.push(doc.tax);
+                    if (includeDescription) row.push(`"${doc.description}"`);
+                    if (includeStatus) row.push(`"${doc.status}"`);
+                    if (includeImageLink) row.push(`"https://example.com/documents/${doc.id}"`);
+                    
+                    csvContent += row.join(',') + '\n';
+                });
+                
+                // Create download link
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                
+                downloadExport.setAttribute('href', url);
+                downloadExport.setAttribute('download', `document_export_${new Date().toISOString().slice(0, 10)}.csv`);
+                
+                // Show export result
+                exportResult.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

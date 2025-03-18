@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Cifra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center mb-6 text-blue-600">Create an Account</h1>
+        
+        <form id="registerForm" class="space-y-4">
+            <!-- Email Address -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input type="email" id="email" name="email" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <p id="emailError" class="mt-1 text-sm text-red-600 hidden"></p>
+            </div>
+            
+            <!-- Password -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <div class="mt-1 flex items-center">
+                    <div id="passwordStrength" class="h-1 flex-grow rounded-full overflow-hidden bg-gray-200">
+                        <div id="passwordStrengthBar" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
+                    </div>
+                    <span id="passwordStrengthText" class="ml-2 text-xs text-gray-500">Weak</span>
+                </div>
+            </div>
+            
+            <!-- Confirm Password -->
+            <div>
+                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <p id="confirmPasswordError" class="mt-1 text-sm text-red-600 hidden"></p>
+            </div>
+            
+            <!-- Account Type -->
+            <div>
+                <label for="accountType" class="block text-sm font-medium text-gray-700">Account Type</label>
+                <select id="accountType" name="accountType" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select account type</option>
+                    <option value="accountant">Accountant</option>
+                    <option value="standard">Standard User</option>
+                </select>
+            </div>
+            
+            <!-- Terms of Service -->
+            <div class="flex items-start">
+                <input type="checkbox" id="termsOfService" name="termsOfService" required
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1">
+                <label for="termsOfService" class="ml-2 block text-sm text-gray-700">
+                    I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a>
+                </label>
+            </div>
+            
+            <!-- Privacy Policy -->
+            <div class="flex items-start">
+                <input type="checkbox" id="privacyPolicy" name="privacyPolicy" required
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1">
+                <label for="privacyPolicy" class="ml-2 block text-sm text-gray-700">
+                    I acknowledge the <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
+                </label>
+            </div>
+            
+            <!-- Register Button -->
+            <div>
+                <button type="submit"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Register
+                </button>
+            </div>
+        </form>
+        
+        <div class="mt-4 text-center">
+            <p class="text-sm text-gray-600">
+                Already have an account? <a href="login.html" class="text-blue-600 hover:underline">Log in</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registerForm');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const emailError = document.getElementById('emailError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+            const passwordStrengthText = document.getElementById('passwordStrengthText');
+            
+            // Email validation
+            email.addEventListener('blur', function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.classList.remove('hidden');
+                } else {
+                    emailError.classList.add('hidden');
+                }
+            });
+            
+            // Password strength indicator
+            password.addEventListener('input', function() {
+                const value = password.value;
+                let strength = 0;
+                
+                if (value.length >= 8) strength += 1;
+                if (/[A-Z]/.test(value)) strength += 1;
+                if (/[0-9]/.test(value)) strength += 1;
+                if (/[^A-Za-z0-9]/.test(value)) strength += 1;
+                
+                switch (strength) {
+                    case 0:
+                        passwordStrengthBar.style.width = '0%';
+                        passwordStrengthBar.className = 'h-full w-0 bg-red-500 transition-all duration-300';
+                        passwordStrengthText.textContent = 'Weak';
+                        passwordStrengthText.className = 'ml-2 text-xs text-gray-500';
+                        break;
+                    case 1:
+                        passwordStrengthBar.style.width = '25%';
+                        passwordStrengthBar.className = 'h-full bg-red-500 transition-all duration-300';
+                        passwordStrengthText.textContent = 'Weak';
+                        passwordStrengthText.className = 'ml-2 text-xs text-red-500';
+                        break;
+                    case 2:
+                        passwordStrengthBar.style.width = '50%';
+                        passwordStrengthBar.className = 'h-full bg-yellow-500 transition-all duration-300';
+                        passwordStrengthText.textContent = 'Medium';
+                        passwordStrengthText.className = 'ml-2 text-xs text-yellow-500';
+                        break;
+                    case 3:
+                        passwordStrengthBar.style.width = '75%';
+                        passwordStrengthBar.className = 'h-full bg-blue-500 transition-all duration-300';
+                        passwordStrengthText.textContent = 'Good';
+                        passwordStrengthText.className = 'ml-2 text-xs text-blue-500';
+                        break;
+                    case 4:
+                        passwordStrengthBar.style.width = '100%';
+                        passwordStrengthBar.className = 'h-full bg-green-500 transition-all duration-300';
+                        passwordStrengthText.textContent = 'Strong';
+                        passwordStrengthText.className = 'ml-2 text-xs text-green-500';
+                        break;
+                }
+            });
+            
+            // Password match validation
+            confirmPassword.addEventListener('input', function() {
+                if (password.value !== confirmPassword.value) {
+                    confirmPasswordError.textContent = 'Passwords do not match';
+                    confirmPasswordError.classList.remove('hidden');
+                } else {
+                    confirmPasswordError.classList.add('hidden');
+                }
+            });
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.classList.remove('hidden');
+                    return;
+                }
+                
+                // Validate password match
+                if (password.value !== confirmPassword.value) {
+                    confirmPasswordError.textContent = 'Passwords do not match';
+                    confirmPasswordError.classList.remove('hidden');
+                    return;
+                }
+                
+                // If all validations pass, redirect to dashboard
+                // In a real application, this would submit to a server
+                alert('Registration successful! Welcome to Cifra.');
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>
