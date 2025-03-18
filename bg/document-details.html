@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Details - Cifra</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .language-selector {
+            position: absolute;
+            top: 1rem;
+            right: 5rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <!-- Navigation Bar -->
@@ -28,6 +35,12 @@
                     </div>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <div class="language-selector mr-4">
+                        <select id="languageSelect" class="px-2 py-1 border border-gray-300 rounded-md text-sm">
+                            <option value="en" selected>English</option>
+                            <option value="bg">Български</option>
+                        </select>
+                    </div>
                     <div class="ml-3 relative">
                         <div>
                             <button type="button" class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button">
@@ -425,6 +438,501 @@
                     window.location.href = 'login.html';
                 });
             }
+            
+            // Language selector
+            const languageSelect = document.getElementById('languageSelect');
+            
+            languageSelect.addEventListener('change', function() {
+                const selectedLanguage = this.value;
+                if (selectedLanguage === 'bg') {
+                    window.location.href = 'bg/document-details.html';
+                } else if (selectedLanguage === 'en') {
+                    window.location.href = 'document-details.html';
+                }
+            });
+            
+            // Save document functionality
+            const saveButton = document.getElementById('save-document');
+            const successNotification = document.getElementById('success-notification');
+            const closeNotification = document.getElementById('close-notification');
+            
+            saveButton.addEventListener('click', function() {
+                // In a real application, this would submit the form data to the server
+                // For this prototype, we'll just show a success notification
+                successNotification.classList.remove('hidden');
+                
+                // Hide the notification after 5 seconds
+                setTimeout(function() {
+                    successNotification.classList.add('hidden');
+                }, 5000);
+            });
+            
+            closeNotification.addEventListener('click', function() {
+                successNotification.classList.add('hidden');
+            });
+            
+            // Get document ID from URL (in a real app)
+            const urlParams = new URLSearchParams(window.location.search);
+            const documentId = urlParams.get('id') || '1';
+            
+            // In a real application, you would fetch the document data from the server
+            // For this prototype, we're using hardcoded data
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детайли на документ - Cifra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .language-selector {
+            position: absolute;
+            top: 1rem;
+            right: 5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-blue-600 text-lg font-bold">Cifra</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="dashboard.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Табло
+                        </a>
+                        <a href="documents.html" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Документи
+                        </a>
+                        <a href="reports.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Справки
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <div class="language-selector mr-4">
+                        <select id="languageSelect" class="px-2 py-1 border border-gray-300 rounded-md text-sm">
+                            <option value="en">English</option>
+                            <option value="bg" selected>Български</option>
+                        </select>
+                    </div>
+                    <div class="ml-3 relative">
+                        <div>
+                            <button type="button" class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button">
+                                <span class="sr-only">Отвори потребителско меню</span>
+                                <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <span class="text-blue-600 font-medium">ИД</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="user-menu">
+                            <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700">Настройки</a>
+                            <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700">Изход</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex items-center sm:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Отвори главно меню</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu, show/hide based on menu state -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="dashboard.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Табло</a>
+                <a href="documents.html" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Документи</a>
+                <a href="reports.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Справки</a>
+                <a href="settings.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Настройки</a>
+                <a href="login.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Изход</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <!-- Back Button -->
+            <div class="mb-6">
+                <a href="documents.html" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500">
+                    <svg class="mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Обратно към списъка с документи
+                </a>
+            </div>
+            
+            <!-- Document Header -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                <div>
+                    <h1 class="text-2xl font-semibold text-gray-900" id="document-title">Фактура #INV-2025-001</h1>
+                    <p class="mt-1 text-sm text-gray-600" id="document-subtitle">
+                        Качена на 17 март, 2025
+                    </p>
+                </div>
+                <div class="mt-4 md:mt-0 flex">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="mr-2 -ml-1 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Изтегли
+                    </button>
+                    <button type="button" id="save-document" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Запази промените
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Document Content -->
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                <!-- Document Image and Details -->
+                <div class="sm:col-span-3">
+                    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                        <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Изображение на документа
+                            </h3>
+                            <button type="button" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg class="mr-2 -ml-1 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                                </svg>
+                                Увеличи
+                            </button>
+                        </div>
+                        <div class="border-t border-gray-200">
+                            <div class="px-4 py-5 sm:p-0">
+                                <div class="flex justify-center p-4">
+                                    <img src="https://via.placeholder.com/600x800" alt="Преглед на документа" class="max-w-full h-auto border border-gray-200 rounded">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Document Details Form -->
+                <div class="sm:col-span-3">
+                    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                        <div class="px-4 py-5 sm:px-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Детайли на документа
+                            </h3>
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                Редактирайте извлечената информация при необходимост.
+                            </p>
+                        </div>
+                        <div class="border-t border-gray-200">
+                            <div class="px-4 py-5 sm:p-6">
+                                <form id="document-form" class="space-y-6">
+                                    <div class="grid grid-cols-6 gap-6">
+                                        <!-- Document Type -->
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="document-type" class="block text-sm font-medium text-gray-700">Тип документ</label>
+                                            <select id="document-type" name="document-type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <option value="invoice" selected>Фактура</option>
+                                                <option value="receipt">Разписка</option>
+                                                <option value="statement">Извлечение</option>
+                                                <option value="other">Други</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Status -->
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="document-status" class="block text-sm font-medium text-gray-700">Статус</label>
+                                            <select id="document-status" name="document-status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <option value="processed" selected>Обработен</option>
+                                                <option value="processing">В обработка</option>
+                                                <option value="pending">Чака преглед</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Invoice Number -->
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="invoice-number" class="block text-sm font-medium text-gray-700">Номер на фактура</label>
+                                            <input type="text" name="invoice-number" id="invoice-number" value="INV-2025-001" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        </div>
+                                        
+                                        <!-- Date -->
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="document-date" class="block text-sm font-medium text-gray-700">Дата</label>
+                                            <input type="date" name="document-date" id="document-date" value="2025-03-17" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        </div>
+                                        
+                                        <!-- Supplier -->
+                                        <div class="col-span-6">
+                                            <label for="supplier" class="block text-sm font-medium text-gray-700">Доставчик</label>
+                                            <input type="text" name="supplier" id="supplier" value="Акме Корпорация" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        </div>
+                                        
+                                        <!-- Total Amount -->
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="total-amount" class="block text-sm font-medium text-gray-700">Обща сума</label>
+                                            <div class="mt-1 relative rounded-md shadow-sm">
+                                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                    <span class="text-gray-500 sm:text-sm">лв.</span>
+                                                </div>
+                                                <input type="text" name="total-amount" id="total-amount" value="1 250,00" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 sm:text-sm border-gray-300 rounded-md">
+                                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                    <span class="text-gray-500 sm:text-sm">BGN</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Tax Amount -->
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="tax-amount" class="block text-sm font-medium text-gray-700">Данъчна сума</label>
+                                            <div class="mt-1 relative rounded-md shadow-sm">
+                                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                    <span class="text-gray-500 sm:text-sm">лв.</span>
+                                                </div>
+                                                <input type="text" name="tax-amount" id="tax-amount" value="125,00" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 sm:text-sm border-gray-300 rounded-md">
+                                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                    <span class="text-gray-500 sm:text-sm">BGN</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Description -->
+                                        <div class="col-span-6">
+                                            <label for="description" class="block text-sm font-medium text-gray-700">Описание</label>
+                                            <textarea id="description" name="description" rows="3" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">Офис консумативи и оборудване за Q1 2025</textarea>
+                                        </div>
+                                        
+                                        <!-- Tags -->
+                                        <div class="col-span-6">
+                                            <label for="tags" class="block text-sm font-medium text-gray-700">Етикети</label>
+                                            <div class="mt-1">
+                                                <div class="flex flex-wrap items-center">
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2 mb-2">
+                                                        Офис консумативи
+                                                        <button type="button" class="ml-1 inline-flex text-blue-400 hover:text-blue-500">
+                                                            <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        </button>
+                                                    </span>
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 mr-2 mb-2">
+                                                        Q1 2025
+                                                        <button type="button" class="ml-1 inline-flex text-green-400 hover:text-green-500">
+                                                            <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        </button>
+                                                    </span>
+                                                    <div class="relative">
+                                                        <input type="text" id="new-tag" placeholder="Добави етикет..." class="focus:ring-blue-500 focus:border-blue-500 block w-32 shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Line Items -->
+                <div class="sm:col-span-6">
+                    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                        <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Редове
+                            </h3>
+                            <button type="button" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg class="mr-2 -ml-1 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                                </svg>
+                                Добави ред
+                            </button>
+                        </div>
+                        <div class="border-t border-gray-200">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Описание
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Количество
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Единична цена
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Общо
+                                            </th>
+                                            <th scope="col" class="relative px-6 py-3">
+                                                <span class="sr-only">Действия</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <input type="text" value="Премиум хартия (500 листа)" class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <input type="number" value="5" class="block w-20 shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="relative rounded-md shadow-sm">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                        <span class="text-gray-500 sm:text-sm">лв.</span>
+                                                    </div>
+                                                    <input type="text" value="45,00" class="focus:ring-blue-500 focus:border-blue-500 block w-24 pl-10 sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="relative rounded-md shadow-sm">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                        <span class="text-gray-500 sm:text-sm">лв.</span>
+                                                    </div>
+                                                    <input type="text" value="225,00" class="focus:ring-blue-500 focus:border-blue-500 block w-24 pl-10 sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <button type="button" class="text-red-600 hover:text-red-900">
+                                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <input type="text" value="Ергономична клавиатура" class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <input type="number" value="2" class="block w-20 shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="relative rounded-md shadow-sm">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                        <span class="text-gray-500 sm:text-sm">лв.</span>
+                                                    </div>
+                                                    <input type="text" value="125,00" class="focus:ring-blue-500 focus:border-blue-500 block w-24 pl-10 sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="relative rounded-md shadow-sm">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                        <span class="text-gray-500 sm:text-sm">лв.</span>
+                                                    </div>
+                                                    <input type="text" value="250,00" class="focus:ring-blue-500 focus:border-blue-500 block w-24 pl-10 sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <button type="button" class="text-red-600 hover:text-red-900">
+                                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification (hidden by default) -->
+    <div id="success-notification" class="fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end hidden">
+        <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+            <div class="p-4">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <svg class="h-6 w-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="ml-3 w-0 flex-1 pt-0.5">
+                        <p class="text-sm font-medium text-gray-900">
+                            Промените са запазени успешно!
+                        </p>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Вашият документ е актуализиран.
+                        </p>
+                    </div>
+                    <div class="ml-4 flex-shrink-0 flex">
+                        <button id="close-notification" class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <span class="sr-only">Затвори</span>
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // User menu toggle
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            userMenuButton.addEventListener('click', function() {
+                userMenu.classList.toggle('hidden');
+            });
+            
+            // Close the menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                    userMenu.classList.add('hidden');
+                }
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Logout functionality
+            const logoutButton = document.getElementById('logoutButton');
+            
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function() {
+                    window.location.href = 'login.html';
+                });
+            }
+            
+            // Language selector
+            const languageSelect = document.getElementById('languageSelect');
+            
+            languageSelect.addEventListener('change', function() {
+                const selectedLanguage = this.value;
+                if (selectedLanguage === 'bg') {
+                    window.location.href = 'document-details.html';
+                } else if (selectedLanguage === 'en') {
+                    window.location.href = '../document-details.html';
+                }
+            });
             
             // Save document functionality
             const saveButton = document.getElementById('save-document');
