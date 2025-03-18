@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Cifra</title>
+    <title>Регистрация - Cifra</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .language-selector {
@@ -16,17 +16,17 @@
 <body class="bg-gray-100 min-h-screen flex items-center justify-center relative">
     <div class="language-selector">
         <select id="languageSelect" class="px-2 py-1 border border-gray-300 rounded-md text-sm">
-            <option value="en" selected>English</option>
-            <option value="bg">Български</option>
+            <option value="en">English</option>
+            <option value="bg" selected>Български</option>
         </select>
     </div>
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 class="text-2xl font-bold text-center mb-6 text-blue-600">Create an Account</h1>
+        <h1 class="text-2xl font-bold text-center mb-6 text-blue-600">Създаване на акаунт</h1>
         
         <form id="registerForm" class="space-y-4">
             <!-- Email Address -->
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <label for="email" class="block text-sm font-medium text-gray-700">Имейл адрес</label>
                 <input type="email" id="email" name="email" required
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 <p id="emailError" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -34,20 +34,20 @@
             
             <!-- Password -->
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <label for="password" class="block text-sm font-medium text-gray-700">Парола</label>
                 <input type="password" id="password" name="password" required
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 <div class="mt-1 flex items-center">
                     <div id="passwordStrength" class="h-1 flex-grow rounded-full overflow-hidden bg-gray-200">
                         <div id="passwordStrengthBar" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
                     </div>
-                    <span id="passwordStrengthText" class="ml-2 text-xs text-gray-500">Weak</span>
+                    <span id="passwordStrengthText" class="ml-2 text-xs text-gray-500">Слаба</span>
                 </div>
             </div>
             
             <!-- Confirm Password -->
             <div>
-                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Потвърдете паролата</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" required
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 <p id="confirmPasswordError" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -55,12 +55,12 @@
             
             <!-- Account Type -->
             <div>
-                <label for="accountType" class="block text-sm font-medium text-gray-700">Account Type</label>
+                <label for="accountType" class="block text-sm font-medium text-gray-700">Тип акаунт</label>
                 <select id="accountType" name="accountType" required
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Select account type</option>
-                    <option value="accountant">Accountant</option>
-                    <option value="standard">Standard User</option>
+                    <option value="">Изберете тип акаунт</option>
+                    <option value="accountant">Счетоводител</option>
+                    <option value="standard">Стандартен потребител</option>
                 </select>
             </div>
             
@@ -69,7 +69,7 @@
                 <input type="checkbox" id="termsOfService" name="termsOfService" required
                     class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1">
                 <label for="termsOfService" class="ml-2 block text-sm text-gray-700">
-                    I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a>
+                    Съгласен съм с <a href="#" class="text-blue-600 hover:underline">Условията за ползване</a>
                 </label>
             </div>
             
@@ -78,7 +78,7 @@
                 <input type="checkbox" id="privacyPolicy" name="privacyPolicy" required
                     class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1">
                 <label for="privacyPolicy" class="ml-2 block text-sm text-gray-700">
-                    I acknowledge the <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
+                    Запознат съм с <a href="#" class="text-blue-600 hover:underline">Политиката за поверителност</a>
                 </label>
             </div>
             
@@ -86,14 +86,14 @@
             <div>
                 <button type="submit"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Register
+                    Регистрация
                 </button>
             </div>
         </form>
         
         <div class="mt-4 text-center">
             <p class="text-sm text-gray-600">
-                Already have an account? <a href="login.html" class="text-blue-600 hover:underline">Log in</a>
+                Вече имате акаунт? <a href="../login.html" class="text-blue-600 hover:underline">Вход</a>
             </p>
         </div>
     </div>
@@ -114,9 +114,9 @@
             languageSelect.addEventListener('change', function() {
                 const selectedLanguage = this.value;
                 if (selectedLanguage === 'bg') {
-                    window.location.href = 'bg/register.html';
-                } else if (selectedLanguage === 'en') {
                     window.location.href = 'register.html';
+                } else if (selectedLanguage === 'en') {
+                    window.location.href = '../register.html';
                 }
             });
             
@@ -124,7 +124,7 @@
             email.addEventListener('blur', function() {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email.value)) {
-                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.textContent = 'Моля, въведете валиден имейл адрес';
                     emailError.classList.remove('hidden');
                 } else {
                     emailError.classList.add('hidden');
@@ -145,31 +145,31 @@
                     case 0:
                         passwordStrengthBar.style.width = '0%';
                         passwordStrengthBar.className = 'h-full w-0 bg-red-500 transition-all duration-300';
-                        passwordStrengthText.textContent = 'Weak';
+                        passwordStrengthText.textContent = 'Слаба';
                         passwordStrengthText.className = 'ml-2 text-xs text-gray-500';
                         break;
                     case 1:
                         passwordStrengthBar.style.width = '25%';
                         passwordStrengthBar.className = 'h-full bg-red-500 transition-all duration-300';
-                        passwordStrengthText.textContent = 'Weak';
+                        passwordStrengthText.textContent = 'Слаба';
                         passwordStrengthText.className = 'ml-2 text-xs text-red-500';
                         break;
                     case 2:
                         passwordStrengthBar.style.width = '50%';
                         passwordStrengthBar.className = 'h-full bg-yellow-500 transition-all duration-300';
-                        passwordStrengthText.textContent = 'Medium';
+                        passwordStrengthText.textContent = 'Средна';
                         passwordStrengthText.className = 'ml-2 text-xs text-yellow-500';
                         break;
                     case 3:
                         passwordStrengthBar.style.width = '75%';
                         passwordStrengthBar.className = 'h-full bg-blue-500 transition-all duration-300';
-                        passwordStrengthText.textContent = 'Good';
+                        passwordStrengthText.textContent = 'Добра';
                         passwordStrengthText.className = 'ml-2 text-xs text-blue-500';
                         break;
                     case 4:
                         passwordStrengthBar.style.width = '100%';
                         passwordStrengthBar.className = 'h-full bg-green-500 transition-all duration-300';
-                        passwordStrengthText.textContent = 'Strong';
+                        passwordStrengthText.textContent = 'Силна';
                         passwordStrengthText.className = 'ml-2 text-xs text-green-500';
                         break;
                 }
@@ -178,7 +178,7 @@
             // Password match validation
             confirmPassword.addEventListener('input', function() {
                 if (password.value !== confirmPassword.value) {
-                    confirmPasswordError.textContent = 'Passwords do not match';
+                    confirmPasswordError.textContent = 'Паролите не съвпадат';
                     confirmPasswordError.classList.remove('hidden');
                 } else {
                     confirmPasswordError.classList.add('hidden');
@@ -192,22 +192,22 @@
                 // Validate email
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email.value)) {
-                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.textContent = 'Моля, въведете валиден имейл адрес';
                     emailError.classList.remove('hidden');
                     return;
                 }
                 
                 // Validate password match
                 if (password.value !== confirmPassword.value) {
-                    confirmPasswordError.textContent = 'Passwords do not match';
+                    confirmPasswordError.textContent = 'Паролите не съвпадат';
                     confirmPasswordError.classList.remove('hidden');
                     return;
                 }
                 
                 // If all validations pass, redirect to dashboard
                 // In a real application, this would submit to a server
-                alert('Registration successful! Welcome to Cifra.');
-                window.location.href = 'dashboard.html';
+                alert('Регистрацията е успешна! Добре дошли в Cifra.');
+                window.location.href = '../dashboard.html';
             });
         });
     </script>
